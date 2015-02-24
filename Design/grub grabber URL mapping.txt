@@ -1,0 +1,20 @@
+Urls:
+
+
+Main/home 
+Results (?) 
+Account (favourites, blacklisted, history) 
+Login
+Register 
+
+
+http://www.grubgrabber.com/			- home page
+http://www.grubgrabber.com/search/
+
+http://www.grubgrabber.com/search/		- with POST data
+
+http://www.grubgrabber.com/place/<PLACE_ID> 	- page with map/details
+
+http://www.grubgrabber.com/profile/ 		- Users profile
+http://www.grubgrabber.com/login/
+http://www.grubgrabber.com/register/ 
