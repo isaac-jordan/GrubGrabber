@@ -1,5 +1,6 @@
 //To compile to CSS, cd into this folder and use "sass --watch app.scss:../css/app.css" to compile to app.css
 @import "settings";
+@import "normalize";
 @import "foundation";
 
 body{font-family:'Raleway',Helvetica,Arial,sans-serif;font-weight:400;background-color:rgba(0,0,0,0.02);}
