@@ -13,13 +13,76 @@
   <script src="{% static "js/vendor/modernizr.js" %}"></script>
 </head>
 <body>
+  <nav class="top-bar" data-topbar>
+
+    <ul class="title-area">
+
+      <li class="name">
+        <h1>
+          <a href="{% url 'index' %}">
+            Grub Grabber
+          </a>
+        </h1>
+      </li>
+    </ul>
+
+    <section class="top-bar-section">
+      <ul class="right">
+        <li class="divider"></li>
+        <li class="has-dropdown">
+          <a href="#">Could we use this</a>
+          <ul class="dropdown">
+            <li><label>Section Name</label></li>
+            <li><a href="#">Dropdown Option</a></li>
+            <li class="divider"></li>
+          </ul>
+        </li>
+        <li class="divider"></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'profile' %}">Profile</a></li>
+        <li class="divider"></li>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+        <li><a href="{% url 'register' %}">Register</a></li>
+        <li class="divider"></li>
+        <li><a href="{% url 'login' %}">Log In</a></li>
+        {% endif %}
+      </ul>
+    </section>
+
+  </nav>
+
+  <div class="row">
+    <div class="large-12 columns">
 
      {% block content %}
      {% endblock %}
 
-     <script src="{% static "js/vendor/jquery.js" %}"></script>
-     <script src="{% static "js/foundation.min.js" %}"></script>
-     <script src="{% static "js/app.js" %}"></script>
+
+     <footer class="row">
+       <div class="large-12 columns"><hr>
+         <div class="row">
+
+           <div class="large-6 columns">
+             <p>© Copyright no one at all. Go to town.</p>
+           </div>
+
+           <div class="large-6 small-12 columns">
+             <ul class="inline-list right">
+               <li><a href="#">Food?</a></li>
+             </ul>
+           </div>
+
+         </div>
+       </div>
+     </footer>
+
+   </div>
+ </div>
+
+  <script src="{% static "js/vendor/jquery.js" %}"></script>
+  <script src="{% static "js/foundation.min.js" %}"></script>
+  <script src="{% static "js/app.js" %}"></script>
 
 
 </body>
