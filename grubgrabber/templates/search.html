@@ -3,6 +3,7 @@
 {% block title %}Search{% endblock %}
 
 {% block content %}
+
 <div class="row">
     <div class="small-12">
         Your search was {{ searchParam }}.
@@ -17,14 +18,16 @@
                         No Rating!
                     {% endif %}</p>
             </div>
-            <br><br>
+        <br><br>
         {% empty %}
             No places!
         {% endfor %}
     </div>
 </div>
 <br>
+
 <script>
     console.log({{ places | safe}});
 </script>
+
 {% endblock %}
