@@ -29,15 +29,6 @@
     <section class="top-bar-section">
       <ul class="right">
         <li class="divider"></li>
-        <li class="has-dropdown">
-          <a href="#">Could we use this</a>
-          <ul class="dropdown">
-            <li><label>Section Name</label></li>
-            <li><a href="#">Dropdown Option</a></li>
-            <li class="divider"></li>
-          </ul>
-        </li>
-        <li class="divider"></li>
         {% if user.is_authenticated %}
         <li><a href="{% url 'profile' %}">Profile</a></li>
         <li class="divider"></li>
@@ -61,7 +52,7 @@
          <div class="row">
 
            <div class="large-6 columns">
-             <p>© Copyright no one at all. Go to town.</p>
+             <p>© Everyone!</p>
            </div>
 
            <div class="large-6 small-12 columns">
