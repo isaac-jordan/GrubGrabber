@@ -57,3 +57,6 @@ target/
 # Databases
 thumbs.db
 db.sqlite3
+
+# Keys
+*key.txt

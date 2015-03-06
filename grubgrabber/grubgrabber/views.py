@@ -1,11 +1,29 @@
 from django.shortcuts import render
+import requests
+import urllib
+import json
 
+GOOGLEKEY = open("key.txt").readline()
 
 def index(request):
     return render(request, "index.html")
 
 def search(request):
-    return render(request, "search.html")
+    if request.method == "GET":
+        return index(request)
+    elif request.method == "POST":
+        #Work in progress
+        args = {"searchParam": request.POST["search"]}
+        payload = {"address": urllib.quote_plus(request.POST["search"]), "key": GOOGLEKEY}
+        geocode = requests.get('https://maps.googleapis.com/maps/api/geocode/json', params=payload) #returns 404
+
+        print geocode.text
+        payload = {"location": urllib.quote_plus(request.POST["search"]), "types":"bakery|cafe|food|meal_takeaway|restaurant" ,"rankby":"distance", "key": GOOGLEKEY}
+        nearbysearch = requests.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json', params=payload)
+        print r.url
+        print r.text
+        args["places"] = nearbysearch.json["results"]
+        return render(request, "search.html", args)
 
 def place(request, PLACE_ID):
     return render(request, "place.html")
