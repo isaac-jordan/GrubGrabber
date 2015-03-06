@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="small-12">
+        Your search was {{ searchParam }}.
+        <br>
+        {% for place in places %}
+            <div class="panel">
+                <p>Name: {{ place.name }}</p>
+                <p>Rating:
+                    {% if place.rating %}
+                        {{ place.rating }}
+                    {% else %}
+                        No Rating!
+                    {% endif %}</p>
+            </div>
+            <br><br>
+        {% empty %}
+            No places!
+        {% endfor %}
+    </div>
+</div>
+<br>
+<script>
+    console.log({{ places | safe}});
+</script>
+{% endblock %}
