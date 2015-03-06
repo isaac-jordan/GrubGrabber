@@ -1,13 +1,44 @@
 {% extends "base.html" %}
 
-{% block title %}Profile{% endblock %}
+{% block title %}Your Profile{% endblock %}
 
 {% block content %}
-
-<div class="row">
-    <div class="large-12 columns">
-        <h1>Profile...</h1>
+    <div class="page-header">
+        <h1 class="form-signin-heading">Your Profile</h1>
     </div>
-</div>
+    
+    <style>
+    img {
+    float: left;
+    margin: 10px;
+    }
+    </style>
+    
+    <li class="list-group-item">
+        {% if user_profile.picture %}
+            <img src="{{ user_profile.picture.url }}" HEIGHT="200" WIDTH="250"/>
+        {% endif %}
 
+        <h2> {{ user.username }} </h2>
+    
+        <b> Website: </b>
+        {% if user_profile %}
+            <a href="{{user_profile.website }}">{{user_profile.website}}</a>
+        {% else %}
+            N/A
+        {% endif %}
+        <br />
+    
+        <b> Email Address: </b>
+        {{ user.email }}
+        
+        <br /><br /><br /><br /><br /><br /><br />
+    
+    </li>
+	
+    <br />
+    <form action="{% url 'register_profile' %}">
+        <input class="btn btn-lg btn-primary" type="submit" value="Edit Profile">
+    </form>
+    
 {% endblock %}
