@@ -35,4 +35,7 @@ def login(request):
     return render(request, "login.html")
 
 def profile(request):
-    return render(request, "profile.html")
+    context_dict = {}
+    user = request.user
+    context_dict['user'] = user
+    return render(request, 'profile.html', context_dict)
