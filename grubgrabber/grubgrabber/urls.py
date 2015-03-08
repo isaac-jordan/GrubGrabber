@@ -4,6 +4,7 @@ from django.contrib import admin
 urlpatterns = patterns('',
     url(r'^$', 'grubgrabber.views.index',name='index'),
     url(r'^search/$', 'grubgrabber.views.search',name='search'),
+    url(r'^search/getKey$', 'grubgrabber.views.getKey',name='getKey'),
     url(r'^place/(<PLACE_ID>.*)', 'grubgrabber.views.place',name='place'),
     url(r'^register$', 'grubgrabber.views.register',name='register'),
     url(r'^login$', 'grubgrabber.views.login',name='login'),
