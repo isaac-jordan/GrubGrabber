@@ -2,3 +2,13 @@
 @import "settings";
 @import "normalize";
 @import "foundation";
+
+#googleMap {
+    height: 300px;
+    width:100%;
+    margin: 10px;
+    padding: 10px;
+}
+
+.gm-style img { max-width: none; }
+.gm-style label { width: auto; display: inline; }

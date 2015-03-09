@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import requests
 import urllib
@@ -11,7 +11,7 @@ def index(request):
 
 def search(request):
     if request.method == "GET":
-        return index(request)
+        return redirect("/")
     elif request.method == "POST":
         #Work in progress
         args = {"searchParam": request.POST["search"]}

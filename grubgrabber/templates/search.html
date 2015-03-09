@@ -8,61 +8,48 @@
     <div class="small-12">
         Your search was {{ searchParam }}.
         <br>
-        {% for place in places %}
-            <div class="panel">
-                <p>Name: {{ place.name }}</p>
-                <p>Rating:
-                    {% if place.rating %}
-                        {{ place.rating }}
-                    {% else %}
-                        No Rating!
-                    {% endif %}</p>
-            </div>
-        <br><br>
-        {% empty %}
-            No places!
-        {% endfor %}
-        <div id="googleMap" style="width:500px;height:380px;"></div>
+        <div id="results"></div>
+            <div id="googleMap"></div>
+        </div>
     </div>
-</div>
-<br>
+    <br>
 
-{% endblock %}
+    {% endblock %}
 
-{% block javascript %}
-<script>
-function getKey() {
-    var key;
-    $.ajax("{% url 'getKey' %}", {
-        success: function (data) {
-            key = data;
-        },
-        async: false,
-    });
-    return key;
-}
+    {% block javascript %}
+    <script>
+    function getKey() {
+        var key;
+        $.ajax("{% url 'getKey' %}", {
+            success: function (data) {
+                key = data;
+            },
+            async: false,
+        });
+        return key;
+    }
 
-function searchPlaces(locationObject) {
-    console.log(locationObject);
-    var location = locationObject["lat"]+","+locationObject["lng"];
-    var myKey = getKey();
-    /*$.ajax("https://maps.googleapis.com/maps/api/place/nearbysearch/xml", {
+    function searchPlaces(locationObject) {
+        console.log(locationObject);
+        var location = locationObject["lat"]+","+locationObject["lng"];
+        var myKey = getKey();
+        /*$.ajax("https://maps.googleapis.com/maps/api/place/nearbysearch/xml", {
         data: {
-            location: location,
-            rankby:"distance",
-            types:"bakery|cafe|food|meal_takeaway|restaurant",
-            key: myKey,
-        },
-        dataType:"script",
-        crossDomain:true,
-        success: function (data) {
-            alert("Success " + data);
-            console.log(data);
-        },
-        error: function (data) {
-            alert(data);
-        }
-    });*/
+        location: location,
+        rankby:"distance",
+        types:"bakery|cafe|food|meal_takeaway|restaurant",
+        key: myKey,
+    },
+    dataType:"script",
+    crossDomain:true,
+    success: function (data) {
+    alert("Success " + data);
+    console.log(data);
+},
+error: function (data) {
+alert(data);
+}
+});*/
 
 }
 
@@ -80,47 +67,58 @@ function getCoords(searchParam) {
     });
 }
 </script>
-<script src="http://maps.googleapis.com/maps/api/js?key={{ mapsKey }}"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key={{ mapsKey }}&libraries=places"></script>
 <script>
-//getCoords("{{ searchParam }}");
 var map;
 var geocoder;
 var service;
 var infowindow;
 var searchLocation;
 
-function codeAddress(address) {
-  geocoder.geocode( { 'address': address}, function(results, status) {
-    if (status == google.maps.GeocoderStatus.OK) {
-      map.setCenter(results[0].geometry.location);
-      var marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location
-      });
-    } else {
-      alert('Geocode was not successful for the following reason: ' + status);
+function callback(results, status) {
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+      console.log(results);
+    for (var i = 0; i < results.length; i++) {
+      console.log(results[i]);
+      var contentStart = "<div class='panel'>";
+      var contentEnd = "</div>";
+      $("#results").append(contentStart + results[i]["name"] + contentEnd);
     }
-  });
+  }
+}
+
+function codeAddress(address) {
+    geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            var locationObject = results[0].geometry.location;
+            map.setCenter(locationObject);
+            var marker = new google.maps.Marker({
+                map: map,
+                position: locationObject
+            });
+            var request = {
+                location: locationObject,
+                rankBy: google.maps.places.RankBy.DISTANCE,
+                types: ['bakery','cafe','food','meal_takeaway','restaurant']
+            };
+
+            service = new google.maps.places.PlacesService(map);
+            service.nearbySearch(request, callback);
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
+    });
 }
 
 function initialize() {
     geocoder = new google.maps.Geocoder();
-  var mapProp = {
-    zoom:5,
-    mapTypeId:google.maps.MapTypeId.ROADMAP
-  };
-  map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-  codeAddress("{{ searchParam }}");
+    var mapProp = {
+        zoom:15,
+        mapTypeId:google.maps.MapTypeId.ROADMAP
+    };
+    map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+    codeAddress("{{ searchParam }}");
 }
 google.maps.event.addDomListener(window, 'load', initialize);
-
-function callback(results, status) {
-  if (status == google.maps.places.PlacesServiceStatus.OK) {
-    for (var i = 0; i < results.length; i++) {
-      var place = results[i];
-      createMarker(results[i]);
-    }
-  }
-}
 </script>
 {% endblock %}
