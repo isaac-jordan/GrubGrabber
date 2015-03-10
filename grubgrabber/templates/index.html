@@ -16,7 +16,9 @@ input.mainSearch {
         <h3>Enter your approximate location:</h3>
     </div>
 </div>
+
 <br>
+
 <div class="row">
     <div class="small-10 columns">
         <form action="search/" method="post">
@@ -25,8 +27,6 @@ input.mainSearch {
         </form>
     </div>
 </div>
-
-
 
 <br>
 <div class="row">
@@ -42,49 +42,48 @@ input.mainSearch {
                     </div>
                 </div><hr>
 
-                <div class="hide-for-small">
-                    <div class="row">
-                        <div class="small-12 columns">
-                            <h5 class="subheader"><a href="#">Spicy Grill @ Byres Road, Glasgow</a></h5>
-                        </div>
-                    </div><hr>
+                <div class="row">
+                    <div class="small-12 columns">
+                        <h5 class="subheader"><a href="#">Spicy Grill @ Byres Road, Glasgow</a></h5>
+                    </div>
+                </div><hr>
 
-                    <div class="row">
-                        <div class="small-12 columns">
-                            <h5 class="subheader"><a href="#">Rice @ Leif's</a></h5>
-                        </div>
-                    </div><hr>
+                <div class="row">
+                    <div class="small-12 columns">
+                        <h5 class="subheader"><a href="#">Rice @ Leif's</a></h5>
+                    </div>
+                </div><hr>
 
-                    <div class="row">
-                        <div class="small-12 columns">
-                            <h5 class="subheader"><a href="#">Tacos e'rryday @ Glasgow Uni</a></h5>
-                        </div>
+                <div class="row">
+                    <div class="small-12 columns">
+                        <h5 class="subheader"><a href="#">Tacos e'rryday @ Glasgow Uni</a></h5>
                     </div>
                 </div>
             </div>
 
             <div class="small-5 columns">
                 <h4>Log In</h4>
-                    <div class="row">
-                        <div class="small-3 columns">
-                            <label for="right-label" class="right inline">Username</label>
-                        </div>
-                        <div class="small-9 columns">
-                            <input type="text" id="right-label" placeholder="username">
-                        </div>
+                <div class="row">
+                    <div class="small-3 columns">
+                        <label for="right-label" class="right inline">Username</label>
                     </div>
+                    <div class="small-9 columns">
+                        <input type="text" id="right-label" placeholder="username">
+                    </div>
+                </div>
 
-                    <div class="row">
-                        <div class="small-3 columns">
-                            <label for="right-label" class="right inline">Password</label>
-                        </div>
-                        <div class="small-9 columns">
-                            <input type="text" id="right-label" placeholder="********">
-                        </div>
+                <div class="row">
+                    <div class="small-3 columns">
+                        <label for="right-label" class="right inline">Password</label>
                     </div>
+                    <div class="small-9 columns">
+                        <input type="text" id="right-label" placeholder="********">
+                    </div>
+                </div>
                 <p>Not got an account? Register <a href="{% url 'register' %}">here</a>.</p>
             </div>
 
         </div>
     </div>
-    {% endblock %}
+</div>
+{% endblock %}
