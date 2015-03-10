@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block title %}Search{% endblock %}
 
@@ -9,64 +10,15 @@
         Your search was {{ searchParam }}.
         <br>
         <div id="results"></div>
-            <div id="googleMap"></div>
-        </div>
+        <div id="googleMap"></div>
     </div>
-    <br>
+</div>
+<br>
 
-    {% endblock %}
+{% endblock %}
 
-    {% block javascript %}
-    <script>
-    function getKey() {
-        var key;
-        $.ajax("{% url 'getKey' %}", {
-            success: function (data) {
-                key = data;
-            },
-            async: false,
-        });
-        return key;
-    }
+{% block javascript %}
 
-    function searchPlaces(locationObject) {
-        console.log(locationObject);
-        var location = locationObject["lat"]+","+locationObject["lng"];
-        var myKey = getKey();
-        /*$.ajax("https://maps.googleapis.com/maps/api/place/nearbysearch/xml", {
-        data: {
-        location: location,
-        rankby:"distance",
-        types:"bakery|cafe|food|meal_takeaway|restaurant",
-        key: myKey,
-    },
-    dataType:"script",
-    crossDomain:true,
-    success: function (data) {
-    alert("Success " + data);
-    console.log(data);
-},
-error: function (data) {
-alert(data);
-}
-});*/
-
-}
-
-function parseResult(result) {
-    searchPlaces(result["location"]);
-}
-
-function getCoords(searchParam) {
-    $.ajax("https://maps.googleapis.com/maps/api/geocode/json", {
-        data: {address: searchParam},
-        success: function (data) {
-            parseResult(data["results"][0]["geometry"]);
-        },
-        async:false,
-    });
-}
-</script>
 <script src="http://maps.googleapis.com/maps/api/js?key={{ mapsKey }}&libraries=places"></script>
 <script>
 var map;
@@ -76,15 +28,17 @@ var infowindow;
 var searchLocation;
 
 function callback(results, status) {
-  if (status == google.maps.places.PlacesServiceStatus.OK) {
-      console.log(results);
-    for (var i = 0; i < results.length; i++) {
-      console.log(results[i]);
-      var contentStart = "<div class='panel'>";
-      var contentEnd = "</div>";
-      $("#results").append(contentStart + results[i]["name"] + contentEnd);
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+        console.log(results);
+        var html;
+        var contentStart = "<div class='panel'>";
+        var contentEnd = "</div>";
+        for (var i = 0; i < results.length; i++) {
+            console.log(results[i]);
+            html = contentStart + results[i]["name"] + " @ " + results[i]["vicinity"] + contentEnd;
+            $("#results").append(html);
+        }
     }
-  }
 }
 
 function codeAddress(address) {
@@ -119,6 +73,34 @@ function initialize() {
     map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
     codeAddress("{{ searchParam }}");
 }
+
+function getKey() {
+    var key;
+    $.ajax("{% url 'getKey' %}", {
+        success: function (data) {
+            key = data;
+        },
+        async: false,
+    });
+    return key;
+}
+
+function parseResult(result) {
+    searchPlaces(result["location"]);
+}
+
+function getCoords(searchParam) {
+    $.ajax("https://maps.googleapis.com/maps/api/geocode/json", {
+        data: {address: searchParam},
+        success: function (data) {
+            parseResult(data["results"][0]["geometry"]);
+        },
+        async:false,
+    });
+}
+</script>
+
+<script>
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 {% endblock %}
