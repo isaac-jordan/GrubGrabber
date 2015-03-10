@@ -6573,4 +6573,7 @@ th.hide-for-touch {
   width: auto;
   display: inline; }
 
+#placePhotoContainer {
+  min-height: 170px; }
+
 /*# sourceMappingURL=app.css.map */
