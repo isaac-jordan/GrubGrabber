@@ -3,42 +3,39 @@
 {% block title %}Your Profile{% endblock %}
 
 {% block content %}
-    <div class="page-header">
-        <h1 class="form-signin-heading">Your Profile</h1>
-    </div>
 
+    <div class="row">
+    <div class="large-12 columns">
+        <h1>Your Profile</h1>
     <style>
+
     img {
     float: left;
     margin: 10px;
     }
-    </style>
+	</style>
+		<div class="row">
 
-    <li class="list-group-item">
+		<h2> {{ user.username }} </h2>
+
         {% if user_profile.picture %}
             <img src="{{ user_profile.picture.url }}" HEIGHT="200" WIDTH="250"/>
         {% endif %}
 
-        <h2> {{ user.username }} </h2>
 
-        <b> Website: </b>
-        {% if user_profile %}
-            <a href="{{user_profile.website }}">{{user_profile.website}}</a>
-        {% else %}
-            N/A
-        {% endif %}
-        <br />
 
         <b> Email Address: </b>
         {{ user.email }}
 
-        <br /><br /><br /><br /><br /><br /><br />
-
-    </li>
-
+		{% if user_profile.about %}
+		<b> About me: </b> {{user_profile.about}}
+		{% endif %}
     <br />
-    <form action="{% url 'register_profile' %}">
-        <input class="btn btn-lg btn-primary" type="submit" value="Edit Profile">
-    </form>
 
+	<form action="{% url 'profile' %}">
+        <input class="button small" type="submit" value="Edit Profile">
+    </form>
+	</div>
+	</div>
+	</div>
 {% endblock %}
