@@ -7,9 +7,9 @@
 
 <div class="row">
     <div class="small-12">
-        Your search was {{ searchParam }}.
+        Your search was <strong>{{ searchParam }}</strong>.
         <br>
-        <div id="results"></div>
+        <div id="currentResult"></div>
         <div id="googleMap"></div>
     </div>
 </div>
@@ -26,19 +26,25 @@ var geocoder;
 var service;
 var infowindow;
 var searchLocation;
+var searchResults;
 
 function callback(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
         console.log(results);
+        searchResults = results;
         var html;
         var contentStart = "<div class='panel'>";
-        var contentEnd = "</div>";
-        for (var i = 0; i < results.length; i++) {
-            console.log(results[i]);
-            html = contentStart + results[i]["name"] + " @ " + results[i]["vicinity"] + contentEnd;
-            $("#results").append(html);
-        }
+        var contentEnd = "<a class='button' onClick='getNextResult()'>Get Next</a></div>";
+        result = searchResults.shift();
+        $("#currentResult").append(contentStart + result["name"] + " @ " + result["vicinity"] + contentEnd);
     }
+}
+
+function getNextResult() {
+    var html;
+    var contentStart = "<div class='panel'>";
+    var contentEnd = "<a class='button' onClick='getNextResult()'>Get Next</a></div>";
+    $("#currentResult").html(contentStart + searchResults.shift()["name"] + " @ " + searchResults.shift()["vicinity"] + contentEnd);
 }
 
 function codeAddress(address) {
