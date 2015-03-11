@@ -40,9 +40,8 @@ def place(request, PLACE_ID):
 def register_profile(request):
     registered_profile = False
     context_dict = {}
-    
+
     if request.method == 'POST':
-	
         try:
             profile = UserProfile.objects.get(user=request.user)
             profile_form = UserProfileForm(request.POST, instance=profile)
@@ -53,19 +52,19 @@ def register_profile(request):
             profile = profile_form.save(commit=False)
             profile.user = request.user
             if 'picture' in request.FILES:
-                profile.picture = request.FILES['picture']  
+                profile.picture = request.FILES['picture']
             profile.save()
             registered_profile = True
         else:
             print profile_form.errors
     else:
         profile_form = UserProfileForm()
-    
+
     context_dict['registered_profile'] = registered_profile
     context_dict['profile_form'] = profile_form
-    
+
     return render(request, 'register.html', context_dict)
-	
+
 @login_required
 def profile(request):
     context_dict = {}
@@ -76,5 +75,4 @@ def profile(request):
         context_dict['user_profile'] = user_profile
     except:
         pass
-    
     return render(request, 'profile.html', context_dict)
