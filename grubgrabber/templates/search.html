@@ -35,7 +35,7 @@
                 <div class="small-12 columns">
                     <br>
                     <a class='button secondary' onClick='getNextResult()'>Get Next</a>
-                    <a class='button success'>Eat Here!</a>
+                    <a id ='this_place' class='button success' >Eat Here!</a>
                     <a class='button'>Favourite</a>
                     <a class='button alert'>Blacklist</a>
                 </div>
@@ -96,6 +96,7 @@ function getNextResult() {
             map: map,
             position: result["geometry"]["location"]
         });
+		placeID = place.placeId;
     } else {
         alert("No more places.");
     }
