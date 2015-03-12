@@ -6,43 +6,43 @@
 {% block content %}
 
 <div class="row">
-    <div class="small-12">
-        <span id="placeName"></span>
-        <br>
-        <div id="currentResult" class="panel">
-            <div class="row">
-                <div class="small-1 columns">
-                    <img id="typeIcon" class="left" height="49" width="49"/>
-                </div>
-                <div class="small-7 columns">
-                    <h1><span id="placeName"></span></h1>
-                </div>
-                <div class="small-4 columns">
-                    <div id="placePhotoContainer">
-                        <img id="placePhoto" src="http://placehold.it/329x150&text=Place Image">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="small-4 columns">
-                    <div id="googleMap"></div>
-                </div>
-                <div class="small-8 columns">
-                    Location: <span id="placeLocation"></span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="small-12 columns">
-                    <br>
-                    <a class='button success'>Eat Here!</a>
-                    <a class='button'>Favourite</a>
-                    <a class='button alert'>Blacklist</a>
-                </div>
-            </div>
-
+  <div class="small-12">
+    <span id="placeName"></span>
+    <br>
+    <div id="currentResult" class="panel">
+      <div class="row">
+        <div class="small-1 columns">
+          <img id="typeIcon" class="left" height="49" width="49"/>
         </div>
-        <hr>
+        <div class="small-7 columns">
+          <h1><span id="placeName"></span></h1>
+        </div>
+        <div class="small-4 columns">
+          <div id="placePhotoContainer">
+            <img id="placePhoto" src="http://placehold.it/329x150&text=Place Image">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-4 columns">
+          <div id="googleMap"></div>
+        </div>
+        <div class="small-8 columns">
+          Location: <span id="placeLocation"></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 columns">
+          <br>
+          <a class='button success'>Eat Here!</a>
+          <a class='button'>Favourite</a>
+          <a class='button alert'>Blacklist</a>
+        </div>
+      </div>
+
     </div>
+    <hr>
+  </div>
 </div>
 <br>
 {% endblock %}
@@ -60,77 +60,77 @@ var searchResults;
 var placeName;
 
 function callback(results, status) {
-    if (status == google.maps.places.PlacesServiceStatus.OK) {
-        console.log(results);
-        searchResults = results;
-        var html;
-        var result = searchResults.shift();
-        $("#placeName").append(result["name"]);
-        $("#placeLocation").append(result["vicinity"]);
-        $("#typeIcon").attr("src",result["icon"]);
-        if (result["photos"] != undefined) {
-            $("#placePhoto").attr("src",result["photos"][0].getUrl({'maxHeight': 150}));
-        } else {
-            $("#placePhoto").attr("src","http://placehold.it/329x150&text=Place Image");
-        }
-        new google.maps.Marker({
-            map: map,
-            position: result["geometry"]["location"]
-        });
-
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+    console.log(results);
+    searchResults = results;
+    var html;
+    var result = searchResults.shift();
+    $("#placeName").append(result["name"]);
+    $("#placeLocation").append(result["vicinity"]);
+    $("#typeIcon").attr("src",result["icon"]);
+    if (result["photos"] != undefined) {
+      $("#placePhoto").attr("src",result["photos"][0].getUrl({'maxHeight': 150}));
+    } else {
+      $("#placePhoto").attr("src","http://placehold.it/329x150&text=Place Image");
     }
+    new google.maps.Marker({
+      map: map,
+      position: result["geometry"]["location"]
+    });
+
+  }
 }
 
 function initialize() {
-    geocoder = new google.maps.Geocoder();
-    var mapProp = {
-        zoom:15,
-        mapTypeId:google.maps.MapTypeId.ROADMAP
-    };
-	
-    map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-	
-    var request = {
-		placeId: {{ PLACE_ID }}
-	};
-	
-	var infowindow = new google.maps.InfoWindow();
-	var service = new google.maps.places.PlacesService(map);
-	placename = place.Name;
-	service.getDetails(request, function(place, status) {
-		if (status == google.maps.places.PlacesServiceStatus.OK) {
-		var marker = new google.maps.Marker({
-			map: map,
+  geocoder = new google.maps.Geocoder();
+  var mapProp = {
+    zoom:15,
+    mapTypeId:google.maps.MapTypeId.ROADMAP
+  };
+
+  map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+  var request = {
+    placeId: {{ PLACE_ID }}
+  };
+
+  var infowindow = new google.maps.InfoWindow();
+  var service = new google.maps.places.PlacesService(map);
+  placename = place.Name;
+  service.getDetails(request, function(place, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+      var marker = new google.maps.Marker({
+        map: map,
         position: place.geometry.location
-		});
+      });
       google.maps.event.addListener(marker, 'click', function() {
         infowindow.setContent(place.name);
         infowindow.open(map, this);
-		});
-		}
-	});
+      });
+    }
+  });
 
 }
 
 function getKey() {
-    var key;
-    $.ajax("{% url 'getKey' %}", {
-        success: function (data) {
-            key = data;
-        },
-        async: false,
-    });
-    return key;
+  var key;
+  $.ajax("{% url 'getKey' %}", {
+    success: function (data) {
+      key = data;
+    },
+    async: false,
+  });
+  return key;
 }
 
 function getCoords(PLACE_ID) {
-    $.ajax("https://maps.googleapis.com/maps/api/geocode/json", {
-        data: {placeId: PLACE_ID},
-        success: function (data) {
-            searchPlaces(data["results"][0]["geometry"]["location"]);
-        },
-        async:false,
-    });
+  $.ajax("https://maps.googleapis.com/maps/api/geocode/json", {
+    data: {placeId: PLACE_ID},
+    success: function (data) {
+      searchPlaces(data["results"][0]["geometry"]["location"]);
+    },
+    async:false,
+  });
 }
 </script>
 
@@ -138,4 +138,3 @@ function getCoords(PLACE_ID) {
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 {% endblock %}
-

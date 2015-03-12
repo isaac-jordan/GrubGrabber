@@ -4,34 +4,32 @@
 
 {% block content %}
 
+<!-- Isaac, move this to scss -->
 <style>
 img {
-    float: left;
-    margin: 10px;
+  float: left;
+  margin: 10px;
 }
 </style>
 
 <div class="row">
-    <div class="large-12 columns">
-        <h1>Your Profile</h1>
-        <div class="row">
-            <h2> {{ user.username }} </h2>
-            {% if user_profile.picture %}
-            <img src="{{ user_profile.picture.url }}" HEIGHT="200" WIDTH="250"/>
-            {% endif %}            
-
-            <b> Email Address: </b>
-            {{ user.email }}
-
-            {% if user_profile.about %}
-            <b> About me: </b> {{user_profile.about}}
-            {% endif %}
-            <br />
-
-            <form action="{% url 'profile' %}">
-                <input class="button small" type="submit" value="Edit Profile">
-            </form>
-        </div>
+  <div class="large-12 columns">
+    <h1>Your Profile</h1>
+    <div class="row">
+      <h2> {{ user.username }} </h2>
+      {% if user_profile.picture %}
+        <img src="{{ user_profile.picture.url }}" HEIGHT="200" WIDTH="250"/>
+      {% endif %}
+        <b> Email Address: </b>
+      {{ user.email }}
+      {% if user_profile.about %}
+        <b> About me: </b> {{user_profile.about}}
+      {% endif %}
+      <br />
+      <form action="{% url 'profile' %}">
+        <input class="button small" type="submit" value="Edit Profile">
+      </form>
     </div>
+  </div>
 </div>
 {% endblock %}
