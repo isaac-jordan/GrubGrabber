@@ -34,7 +34,6 @@
       <div class="row">
         <div class="small-12 columns">
           <br>
-          <a class='button success'>Eat Here!</a>
           <a class='button'>Favourite</a>
           <a class='button alert'>Blacklist</a>
         </div>
@@ -82,7 +81,6 @@ function callback(results, status) {
 }
 
 function initialize() {
-  geocoder = new google.maps.Geocoder();
   var mapProp = {
     zoom:15,
     mapTypeId:google.maps.MapTypeId.ROADMAP
@@ -91,12 +89,11 @@ function initialize() {
   map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
 
   var request = {
-    placeId: {{ PLACE_ID }}
+    placeId: "{{ PLACE_ID | safe}}",
   };
 
   var infowindow = new google.maps.InfoWindow();
   var service = new google.maps.places.PlacesService(map);
-  placename = place.Name;
   service.getDetails(request, function(place, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
       var marker = new google.maps.Marker({
@@ -110,27 +107,6 @@ function initialize() {
     }
   });
 
-}
-
-function getKey() {
-  var key;
-  $.ajax("{% url 'getKey' %}", {
-    success: function (data) {
-      key = data;
-    },
-    async: false,
-  });
-  return key;
-}
-
-function getCoords(PLACE_ID) {
-  $.ajax("https://maps.googleapis.com/maps/api/geocode/json", {
-    data: {placeId: PLACE_ID},
-    success: function (data) {
-      searchPlaces(data["results"][0]["geometry"]["location"]);
-    },
-    async:false,
-  });
 }
 </script>
 
