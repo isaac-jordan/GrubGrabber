@@ -33,9 +33,8 @@ def search(request):
 def getKey(request):
     return HttpResponse(GOOGLEKEY)
 
-def place(request):
+def place(request, PLACE_ID):
     context_dict = {}
-    PLACE_ID = request.GET.get('p', '')
     context_dict['PLACE_ID'] = PLACE_ID
     context_dict["mapsKey"] = GOOGLEKEY
     return render(request, "place.html",context_dict)
