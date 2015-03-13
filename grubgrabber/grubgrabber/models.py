@@ -1,29 +1,30 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-class Favourites(models.Model):
+class Favourite(models.Model):
     user = models.ForeignKey(User)
-    place_id = modeles.CharField(max_legnth = 100)
+    place_id = models.CharField(max_length = 100)
 
     def __unicode__(self):
         return self.Favourites.Place_ID
 
-class Likes(models.Model):
+class Like(models.Model):
     user = models.ForeignKey(User)
-    place_id = modeles.CharField(max_legnth = 100)
+    place_id = models.CharField(max_length = 100)
 
     def __unicode__(self):
         return self.Likes.Place_ID
 
-class Dislikes(models.Model):
+class Dislike(models.Model):
     user = models.ForeignKey(User)
-    place_id = modeles.CharField(max_legnth = 100)
+    place_id = models.CharField(max_length = 100)
 
     def __unicode__(self):
         return self.Dislikes.Place_ID
 
 class Blacklist(models.Model):
     user = models.ForeignKey(User)
-    place_id = modeles.CharField(max_legnth = 100)
+    place_id = models.CharField(max_length = 100)
 
     def __unicode__(self):
         return self.Blacklist.Place_ID
@@ -31,7 +32,7 @@ class Blacklist(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
 
-    website = models.URLField(blank=True)
+    about = models.URLField(max_length = 2000)
     picture = models.ImageField(upload_to='profile_images', blank=True)
 
     def __unicode__(self):

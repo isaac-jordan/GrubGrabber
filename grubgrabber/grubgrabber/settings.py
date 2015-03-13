@@ -34,6 +34,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'grubgrabber',
+    'registration',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -50,6 +52,12 @@ ROOT_URLCONF = 'grubgrabber.urls'
 
 WSGI_APPLICATION = 'grubgrabber.wsgi.application'
 
+# User Authentication
+REGISTRATION_OPEN = True
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+LOGIN_REDIRECT_URL = 'index'
+LOGIN_URL = '/accounts/login/'
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases

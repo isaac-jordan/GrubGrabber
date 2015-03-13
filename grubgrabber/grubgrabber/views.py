@@ -67,7 +67,7 @@ def register_profile(request):
     context_dict['registered_profile'] = registered_profile
     context_dict['profile_form'] = profile_form
 
-    return render(request, 'register.html', context_dict)
+    return render(request, 'registration/profile_registration.html', context_dict)
 
 @login_required
 def profile(request):
