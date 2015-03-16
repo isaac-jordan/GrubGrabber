@@ -6,9 +6,7 @@
 {% block content %}
 
 <div class="row">
-  <div class="small-12">
-    <span id="placeName"></span>
-    <br>
+  <div class="small-9 columns">
     <div id="currentResult" class="panel">
       <div class="row">
         <div class="small-1 columns">
@@ -28,26 +26,32 @@
           <div id="googleMap"></div>
         </div>
         <div class="small-8 columns">
-          Location: <span id="placeLocation"></span>
+          <p>Location: <span id="placeLocation"></span></p>
+          <p>Rating: <span id="placeRating"></span></p>
+          <p>Website: <a id="placeWebsite"></a></p>
+          <p>Types: <span id="placeTypes"></span></p>
         </div>
       </div>
       <div class="row">
         <div class="small-12 columns">
-          <br>
           <a class='button'>Favourite</a>
           <a class='button alert'>Blacklist</a>
         </div>
       </div>
 
     </div>
-    <hr>
+  </div>
+  <div class="small-3 columns panel" >
+      <div id="placeReviews" class="placeReviews">
+      </div>
+      <ul id="placeReviewsButtons" class="button-group round text-center">
+      </ul>
   </div>
 </div>
-<br>
 {% endblock %}
 
 {% block javascript %}
-
+<script src="{% static "js/slick.min.js" %}"></script>
 <script src="http://maps.googleapis.com/maps/api/js?key={{ mapsKey }}&libraries=places"></script>
 <script>
 var map;
@@ -58,15 +62,32 @@ var searchLocation;
 var searchResults;
 var placeName;
 
-function callback(results, status) {
+function callback(result, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
-    console.log(results);
-    searchResults = results;
-    var html;
-    var result = searchResults.shift();
+    console.log(result);
     $("#placeName").append(result["name"]);
-    $("#placeLocation").append(result["vicinity"]);
+    $("#placeLocation").append(result["formatted_address"]);
     $("#typeIcon").attr("src",result["icon"]);
+    $("#placeRating").append(result["rating"]);
+    $("#placeWebsite").append(result["website"]);
+    $("#placeWebsite").attr("href", result["website"]);
+    result["reviews"].forEach(function(review) {
+        var html = "<div class='review'>";
+        html += review["author_name"];
+        html += "<br>";
+        html += review["text"];
+        html += "</div>";
+        $("#placeReviews").append(html);
+    });
+    $('.placeReviews').slick({
+        infinite: true,
+        appendArrows: $("#placeReviewsButtons"),
+        prevArrow: "<a class='slick-prev button small'>Previous</a>",
+        nextArrow: "<a class='slick-next button small'>Next</a>",
+    });
+    result["types"].forEach( function(type) {
+        $("#placeTypes").append(type + ", ");
+    });
     if (result["photos"] != undefined) {
       $("#placePhoto").attr("src",result["photos"][0].getUrl({'maxHeight': 150}));
     } else {
@@ -76,7 +97,6 @@ function callback(results, status) {
       map: map,
       position: result["geometry"]["location"]
     });
-
   }
 }
 
@@ -92,21 +112,9 @@ function initialize() {
     placeId: "{{ PLACE_ID | safe}}",
   };
 
-  var infowindow = new google.maps.InfoWindow();
-  var service = new google.maps.places.PlacesService(map);
-  service.getDetails(request, function(place, status) {
-    if (status == google.maps.places.PlacesServiceStatus.OK) {
-      var marker = new google.maps.Marker({
-        map: map,
-        position: place.geometry.location
-      });
-      google.maps.event.addListener(marker, 'click', function() {
-        infowindow.setContent(place.name);
-        infowindow.open(map, this);
-      });
-    }
-  });
-
+  infowindow = new google.maps.InfoWindow();
+  service = new google.maps.places.PlacesService(map);
+  service.getDetails(request, callback);
 }
 </script>
 
