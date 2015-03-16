@@ -16,28 +16,20 @@ def search(request):
     if request.method == "GET":
         return redirect("/")
     elif request.method == "POST":
-        #Work in progress
         args = {"searchParam": request.POST["search"]}
-        #payload = {"address": urllib.quote_plus(request.POST["search"]), "key": GOOGLEKEY}
-        #geocode = requests.get('https://maps.googleapis.com/maps/api/geocode/json', params=payload) #returns 404
-
-        #print geocode.text
-        #payload = {"location": urllib.quote_plus(request.POST["search"]), "types":"bakery|cafe|food|meal_takeaway|restaurant" ,"rankby":"distance", "key": GOOGLEKEY}
-        #nearbysearch = requests.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json', params=payload)
-        #print r.url
-        #print r.text
-        #args["places"] = nearbysearch.json["results"]
         args["mapsKey"] = GOOGLEKEY
         return render(request, "search.html", args)
 
 def getKey(request):
     return HttpResponse(GOOGLEKEY)
 
-def place(request, PLACE_ID):
-    context_dict = {}
-    context_dict['PLACE_ID'] = PLACE_ID
-    context_dict["mapsKey"] = GOOGLEKEY
-    return render(request, "place.html",context_dict)
+def place(request, SEARCH_LOC, PLACE_ID):
+    args = {}
+    print SEARCH_LOC
+    args['SEARCH_LOC'] = SEARCH_LOC
+    args['PLACE_ID'] = PLACE_ID
+    args["mapsKey"] = GOOGLEKEY
+    return render(request, "place.html", args)
 
 @login_required
 def register_profile(request):

@@ -56,6 +56,6 @@
 <script src="{% static "js/place.js" %}"></script>
 
 <script>
-initialize("{{ PLACE_ID | safe }}");
+initialize("{{ SEARCH_LOC | safe }}", "{{ PLACE_ID | safe }}");
 </script>
 {% endblock %}
