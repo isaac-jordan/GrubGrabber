@@ -6647,4 +6647,8 @@ th.hide-for-touch {
 #placePhotoContainer {
   min-height: 170px; }
 
+input.mainSearch {
+  font-size: 30px;
+  height: 60px; }
+
 /*# sourceMappingURL=app.css.map */

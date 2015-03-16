@@ -3,22 +3,9 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-
-<style>
-input.mainSearch {
-  font-size: 30px;
-  height: 60px;
-}
-</style>
-
 <div class="row">
-  <div class="small-12 columns">
-    <h3>Enter your approximate location:</h3><br>
-  </div>
-</div>
-
-<div class="row">
-  <div class="small-10 columns">
+  <div class="small-12 columns text-center">
+      <h3>Enter your approximate location:</h3><br>
     <form action="search/" method="post">
       {% csrf_token %}
       <input class="mainSearch" type="text" name="search" placeholder="&#8981; Location"/>
