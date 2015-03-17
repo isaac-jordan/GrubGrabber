@@ -23,8 +23,8 @@
         {% if likes %}
 		
             <ul class="list-group">
-                {% for like in likes %}
-					<li class ="list-group-item">{{ Like.place_id }}!!!</li>
+                {% for Like in likes %}
+					<li class ="list-group-item"><a href="/place/(55.864237, -4.251805999999988)/{{ Like.place_id }}">{{ Like.name }}</a></li>
 				{% endfor %}
             </ul>
         {% else %}

@@ -12,9 +12,9 @@ from django.contrib.auth.models import User
 GOOGLEKEY = open("key.txt").readline()
 
 def index(request):
-    likes = Like.objects.all()
+    likes = Like.objects.all()[:8]
     context_dict = {'likes' : likes}
-    return render(request, "index.html")
+    return render(request, "index.html", context_dict)
 
 def search(request):
     context_dict = {}
