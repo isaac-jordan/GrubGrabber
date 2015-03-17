@@ -3,7 +3,8 @@ from django.http import HttpResponse
 import requests
 import urllib
 import json
-from models import Blacklist, Dislike,Favourite,Like
+from grubgrabber.models import Like
+from models import Like
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -11,9 +12,12 @@ from django.contrib.auth.models import User
 GOOGLEKEY = open("key.txt").readline()
 
 def index(request):
+    likes = Like.objects.all()
+    context_dict = {'likes' : likes}
     return render(request, "index.html")
 
 def search(request):
+    context_dict = {}
     if request.method == "GET":
         return redirect("/")
     elif request.method == "POST":

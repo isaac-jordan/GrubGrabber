@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load staticfiles %}
 {% block title %}Home{% endblock %}
 
 {% block content %}
@@ -20,30 +20,17 @@
       <div class="small-6 columns">
 
         <h4>Recent Eats</h4><hr>
-        <div class="row">
-          <div class="small-12 columns">
-            <h5><a href="#">Tesco @ Byres Road, Glasgow</a></h5>
-          </div>
-        </div><hr>
-
-        <div class="row">
-          <div class="small-12 columns">
-            <h5 class="subheader"><a href="#">Spicy Grill @ Byres Road, Glasgow</a></h5>
-          </div>
-        </div><hr>
-
-        <div class="row">
-          <div class="small-12 columns">
-            <h5 class="subheader"><a href="#">Rice @ Leif's</a></h5>
-          </div>
-        </div><hr>
-
-        <div class="row">
-          <div class="small-12 columns">
-            <h5 class="subheader"><a href="#">Tacos e'rryday @ Glasgow Uni</a></h5>
-          </div>
-        </div>
-      </div>
+        {% if likes %}
+		
+            <ul class="list-group">
+                {% for like in likes %}
+					<li class ="list-group-item">{{ Like.place_id }}!!!</li>
+				{% endfor %}
+            </ul>
+        {% else %}
+            <strong>No recent eats</strong>
+        {% endif %}
+      </div> 
 
       <!-- Log in -->
 	  

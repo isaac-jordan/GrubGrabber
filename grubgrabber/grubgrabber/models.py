@@ -6,28 +6,28 @@ class Favourite(models.Model):
     place_id = models.CharField(max_length = 100)
 
     def __unicode__(self):
-        return self.Favourites.Place_ID
+        return self.place_id
 
 class Like(models.Model):
     user = models.ForeignKey(User)
     place_id = models.CharField(max_length = 100)
 
     def __unicode__(self):
-        return self.Likes.Place_ID
+        return self.place_id
 
 class Dislike(models.Model):
     user = models.ForeignKey(User)
     place_id = models.CharField(max_length = 100)
 
     def __unicode__(self):
-        return self.Dislikes.Place_ID
+        return self.place_id
 
 class Blacklist(models.Model):
     user = models.ForeignKey(User)
     place_id = models.CharField(max_length = 100)
 
     def __unicode__(self):
-        return self.Blacklist.Place_ID
+        return self.place_id
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
