@@ -3,6 +3,7 @@ from django.http import HttpResponse
 import requests
 import urllib
 import json
+from models import Blacklist, Dislike,Favourite,Like
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
