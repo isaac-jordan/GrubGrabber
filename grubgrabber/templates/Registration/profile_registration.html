@@ -1,19 +1,21 @@
-{% extends "rango/base.html" %}
+{% extends "base.html" %}
 
 {% block title %}Add Profile{% endblock %}
 
-{% block body_block %}
+{% block content %}
+
     {% if registered_profile %}
         <div class="page-header">
             <h2 class="form-signin-heading">Registration Completed</h2>
         </div>
         Thank you for registering!
     {% else %}
-        <form class="form-signin" role="form" method="post" action="." enctype="multipart/form-data">
+        <h2 class="form-signin-heading">Add your info here</h2>
+        <form data-abide>
             {% csrf_token %}
             <h2 class="form-signin-heading">Add Profile Information</h2>
             {{ profile_form.as_p }}
-            <button class="btn btn-primary" type="submit" value="Submit" />Add Profile</button>
+            <button type="submit" class="button expand">Submit</button>
         </form>
     {% endif %}
 {% endblock %}

@@ -33,7 +33,7 @@ class Blacklist(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
 
-    about = models.URLField(max_length = 2000)
+    about = models.CharField(max_length = 2000)
     picture = models.ImageField(upload_to='profile_images', blank=True)
 
     def __unicode__(self):

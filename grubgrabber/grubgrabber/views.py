@@ -8,6 +8,7 @@ from models import Like
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from grubgrabber.forms import UserForm, UserProfileForm
 
 GOOGLEKEY = open("key.txt").readline()
 
@@ -42,6 +43,7 @@ def register_profile(request):
     context_dict = {}
 
     if request.method == 'POST':
+    
         try:
             profile = UserProfile.objects.get(user=request.user)
             profile_form = UserProfileForm(request.POST, instance=profile)
