@@ -34,8 +34,12 @@
       </div>
       <div class="row">
         <div class="small-12 columns">
-          <a class='button'>Favourite</a>
-          <a class='button alert'>Blacklist</a>
+		<form role="form"  method="post" id = 'favourite' action="." >
+            {% csrf_token %}
+                  {{ Add_Favorurite.as_p }}
+         <button class="button" type="submit" value="Submit">Favourite</button>
+        </form>
+         <button class='button alert'>Blacklist</a>
         </div>
       </div>
 

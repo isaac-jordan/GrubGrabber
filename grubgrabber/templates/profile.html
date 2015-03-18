@@ -33,7 +33,18 @@ img {
         {% else %}
             N/A
         {% endif %}
-    
+		
+		 {% if favourites %}
+		
+            <ul class="list-group">
+			  <strong> Favourites: </strong>
+                {% for Favourite in favourites %}
+					<li class ="list-group-item">{{ Favourite.place_id }}</li>
+				{% endfor %}
+            </ul>
+        {% else %}
+            <strong>No favourites</strong>
+        {% endif %}
       <br />
       <form action="{% url 'register_profile' %}">
         <input class="button small" type="submit" value="Edit Profile">

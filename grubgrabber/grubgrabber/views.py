@@ -3,8 +3,8 @@ from django.http import HttpResponse
 import requests
 import urllib
 import json
-from grubgrabber.models import Like, UserProfile
-from models import Like, UserProfile
+from grubgrabber.models import Like, UserProfile, Favourite
+from models import Like, UserProfile, Favourite
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -35,6 +35,10 @@ def place(request, SEARCH_LOC, PLACE_ID):
     args['SEARCH_LOC'] = SEARCH_LOC
     args['PLACE_ID'] = PLACE_ID
     args["mapsKey"] = GOOGLEKEY
+    
+    if request.method == 'POST':
+        Favourite.objects.get_or_create(user=request.user, place_id=PLACE_ID)
+        
     return render(request, "place.html", args)
 
 @login_required
@@ -75,6 +79,8 @@ def profile(request):
     try:
         user_profile = UserProfile.objects.get(user=user)
         context_dict['user_profile'] = user_profile
+        favourites = Favourite.objects.all()
+        context_dict['favourites'] = favourites
     except:
         pass
     return render(request, 'profile.html', context_dict)

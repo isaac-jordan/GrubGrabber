@@ -6,7 +6,7 @@ class Favourite(models.Model):
     place_id = models.CharField(max_length = 100)
 
     def __unicode__(self):
-        return self.place_id
+        return self.user.username
 
 class Like(models.Model):
     user = models.ForeignKey(User)
