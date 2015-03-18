@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load staticfiles %}
 {% block title %}Home{% endblock %}
 
 {% block content %}
@@ -20,40 +20,30 @@
       <div class="small-6 columns">
 
         <h4>Recent Eats</h4><hr>
-        <div class="row">
-          <div class="small-12 columns">
-            <h5><a href="#">Tesco @ Byres Road, Glasgow</a></h5>
-          </div>
-        </div><hr>
-
-        <div class="row">
-          <div class="small-12 columns">
-            <h5 class="subheader"><a href="#">Spicy Grill @ Byres Road, Glasgow</a></h5>
-          </div>
-        </div><hr>
-
-        <div class="row">
-          <div class="small-12 columns">
-            <h5 class="subheader"><a href="#">Rice @ Leif's</a></h5>
-          </div>
-        </div><hr>
-
-        <div class="row">
-          <div class="small-12 columns">
-            <h5 class="subheader"><a href="#">Tacos e'rryday @ Glasgow Uni</a></h5>
-          </div>
-        </div>
-      </div>
+        {% if likes %}
+		
+            <ul class="list-group">
+                {% for Like in likes %}
+					<li class ="list-group-item"><a href="/place/(55.864237, -4.251805999999988)/{{ Like.place_id }}">{{ Like.name }}</a></li>
+				{% endfor %}
+            </ul>
+        {% else %}
+            <strong>No recent eats</strong>
+        {% endif %}
+      </div> 
 
       <!-- Log in -->
+	  
+	  <form class="form-signin" role="form" method="post" action=".">
       <div class="small-5 columns">
+	  {% csrf_token %}
         <h4>Log In</h4>
         <div class="row">
           <div class="small-3 columns">
             <label for="right-label" class="right inline">Username</label>
           </div>
           <div class="small-9 columns">
-            <input type="text" id="right-label" placeholder="Username">
+            <input class="form-control" placeholder="Username" id="id_username" maxlength="254" name="username" type="text" required autofocus=""/>
           </div>
         </div>
 
@@ -62,9 +52,11 @@
             <label for="right-label" class="right inline">Password</label>
           </div>
           <div class="small-9 columns">
-            <input type="password" id="right-label" placeholder="Password">
+            <input type="password" class="form-control" placeholder="Password" id="id_password" name="password" type="password" required />
           </div>
         </div>
+		<button class="button expand" type="submit" value="Submit" />Sign in</button>
+		</form>
         <p>Not got an account? Register <a href="{% url 'registration_register' %}">here</a>.</p>
       </div>
 

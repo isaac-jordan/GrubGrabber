@@ -1,46 +1,14 @@
 {% extends "base.html" %}
 
-{% block title %}Log In{% endblock %}
+{% block title %}Register{% endblock %}
 
 {% block content %}
-
-<div class="row">
-  <div class="large-12 columns">
-    <h1>Log In...</h1>
-    <form data-abide>
-      <div class="row">
-        <div class="small-8 columns">
-
-          <div class="row">
-            <div class="small-3 columns">
-              <label for="right-label" class="right inline">Username</label>
-            </div>
-            <div class="small-9 columns">
-              <input type="text" id="right-label" placeholder="username" required>
-              <small class="error">Please enter a valid username!</small>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="small-3 columns">
-              <label for="right-label" class="right inline">Password</label>
-            </div>
-            <div class="small-9 columns">
-              <input type="password" id="right-label" placeholder="********" required>
-              <small class="error">Please enter your password!</small>
-            </div>
-          </div>
-
-          <div class ="row">
-            <div class="centered">
-              <button class="button expand" type="submit">Log in</button>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
+<form class="form-signin" role="form" method="post" action=".">
+    {% csrf_token %}
+    <h2> <class="form-signin-heading">Please sign in:</h2>
+    <input class="form-control" placeholder="Username" id="id_username" maxlength="254" name="username" type="text" required autofocus=""/>
+    <input type="password" class="form-control" placeholder="Password" id="id_password" name="password" type="password" required />
+    <button class="btn btn-primary btn-block" type="submit" value="Submit" />Sign in</button>
+</form>
 
 {% endblock %}

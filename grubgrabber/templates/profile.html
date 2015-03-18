@@ -16,17 +16,25 @@ img {
   <div class="large-12 columns">
     <h1>Your Profile</h1>
     <div class="row">
+    
       <h2> {{ user.username }} </h2>
+      
       {% if user_profile.picture %}
         <img src="{{ user_profile.picture.url }}" HEIGHT="200" WIDTH="250"/>
       {% endif %}
-        <b> Email Address: </b>
+      
+      <b> Email Address: </b>
       {{ user.email }}
-      {% if user_profile.about %}
-        <b> About me: </b> {{user_profile.about}}
-      {% endif %}
+      
+        <b> About: </b>
+        {% if user_profile.about %}
+            {{ user_profile.about }}
+        {% else %}
+            N/A
+        {% endif %}
+    
       <br />
-      <form action="{% url 'profile' %}">
+      <form action="{% url 'register_profile' %}">
         <input class="button small" type="submit" value="Edit Profile">
       </form>
     </div>

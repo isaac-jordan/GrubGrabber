@@ -59,6 +59,12 @@ REGISTRATION_AUTO_LOGIN = True
 LOGIN_REDIRECT_URL = 'index'
 LOGIN_URL = '/accounts/login/'
 
+# Password hashing
+PASSWORD_HASHERS = (
+'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+)
+
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
@@ -95,3 +101,9 @@ STATICFILES_DIRS = (
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, "templates"),
 )
+
+# media files
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

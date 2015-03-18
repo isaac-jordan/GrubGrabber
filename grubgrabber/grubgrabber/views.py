@@ -3,16 +3,22 @@ from django.http import HttpResponse
 import requests
 import urllib
 import json
+from grubgrabber.models import Like
+from models import Like
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from grubgrabber.forms import UserForm, UserProfileForm
 
 GOOGLEKEY = open("key.txt").readline()
 
 def index(request):
-    return render(request, "index.html")
+    likes = Like.objects.all()[:8]
+    context_dict = {'likes' : likes}
+    return render(request, "index.html", context_dict)
 
 def search(request):
+    context_dict = {}
     if request.method == "GET":
         return redirect("/")
     elif request.method == "POST":
@@ -37,6 +43,7 @@ def register_profile(request):
     context_dict = {}
 
     if request.method == 'POST':
+    
         try:
             profile = UserProfile.objects.get(user=request.user)
             profile_form = UserProfileForm(request.POST, instance=profile)
