@@ -10,12 +10,18 @@
         </div>
         Thank you for registering!
     {% else %}
-        <h2 class="form-signin-heading">Add your info here</h2>
-        <form data-abide>
+        <form role="form"  method="post" action=".">
             {% csrf_token %}
-            <h2 class="form-signin-heading">Add Profile Information</h2>
-            {{ profile_form.as_p }}
-            <button type="submit" class="button expand">Submit</button>
+            <form data-abide>
+              <div class="form-group" >
+                <div class="small-9 columns">
+                  <h2 class="form-signin-heading">Add Profile Information</h2>
+                  {{ profile_form.as_p }}
+                  <button class="button expand" type="submit" value="Submit">Add Profile</button>
+                </div>
+              </div>
+            </form>
+            </div>
         </form>
     {% endif %}
 {% endblock %}

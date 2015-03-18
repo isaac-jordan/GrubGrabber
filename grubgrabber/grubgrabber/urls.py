@@ -5,7 +5,7 @@ from django.contrib.auth import views
 
 class MyRegistrationView(RegistrationView):
     def get_success_url(self, request, user):
-        return 'profile_registration'
+        return 'register_profile'
 
 urlpatterns = patterns('',
     url(r'^$', 'grubgrabber.views.index',name='index'),
