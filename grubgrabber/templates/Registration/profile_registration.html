@@ -11,7 +11,7 @@
         Thank you for registering!
         
     {% else %}
-        <form role="form"  method="post" action=".">
+        <form role="form"  method="post" action="." enctype="multipart/form-data">
             {% csrf_token %}
               <div class="row" >
                 <div class="small-9 columns">
