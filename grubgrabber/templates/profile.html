@@ -20,14 +20,15 @@ img {
       <h2> {{ user.username }} </h2>
       
       {% if user_profile.picture %}
-        <img src="{{ user_profile.picture.url }}" HEIGHT="200" WIDTH="250"/>
+	   I have a picture :)
+       <img src="{{ user_profile.picture.url }}" HEIGHT="200" WIDTH="250"/>
       {% endif %}
       
       <b> Email Address: </b>
       {{ user.email }}
       
         <b> About: </b>
-        {% if user_profile.about %}
+        {% if user_profile %}
             {{ user_profile.about }}
         {% else %}
             N/A

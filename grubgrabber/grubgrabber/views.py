@@ -3,8 +3,8 @@ from django.http import HttpResponse
 import requests
 import urllib
 import json
-from grubgrabber.models import Like
-from models import Like
+from grubgrabber.models import Like, UserProfile
+from models import Like, UserProfile
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
