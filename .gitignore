@@ -6,6 +6,9 @@ grubgrabber/static/scss/.sass-cache/
 # C extensions
 *.so
 
+#userprofiles
+profile_images
+
 # Distribution / packaging
 .Python
 env/
