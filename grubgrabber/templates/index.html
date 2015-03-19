@@ -5,11 +5,12 @@
 {% block content %}
 <div class="row">
   <div class="small-12 columns text-center">
-  <img src="http://images.cooltext.com/4168253.png" width="482" height="67" alt="Grub Grabber" />
-      <h3>Enter your approximate location:</h3><br>
+  <img src="{% static 'img/grubgrabber.jpg' %}" width="1200" alt="Grub Grabber" />
+  </div>
+  <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
     <form action="search/" method="post">
       {% csrf_token %}
-      <input class="mainSearch" type="text" name="search" placeholder="&#8981; Location"/>
+      <input class="mainSearch" type="text" name="search" placeholder="&#8981; Enter your approximate location"/>
     </form>
   </div>
 </div>
