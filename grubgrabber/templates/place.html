@@ -34,12 +34,8 @@
       </div>
       <div class="row">
         <div class="small-12 columns">
-		<form role="form"  method="post" id = 'favourite' action="." >
-            {% csrf_token %}
-                  {{ Add_Favorurite.as_p }}
-         <button class="button" type="submit" value="Submit">Favourite</button>
-        </form>
-         <button class='button alert'>Blacklist</a>
+         <button class="button" id="favourite"><span id="favouriteIcon"></span>Favourite</button>
+         <button class='button alert' id="blacklist"><span id="blacklistIcon"></span>Blacklist</a>
         </div>
       </div>
 
@@ -60,6 +56,36 @@
 <script src="{% static "js/place.js" %}"></script>
 
 <script>
+$("#favourite").click(function() {
+    var place = "{{ PLACE_ID | safe }}";
+    $.get("/add_favourite", {place:place}, function(data) {
+        if (data == "Added") {
+            $("#favourite").addClass("info");
+            $("#favouriteIcon").html("<i class='fi-x'></i> ")
+        } else if (data == "Removed") {
+            $("#favourite").removeClass("info");
+            $("#favouriteIcon").html("")
+        } else {
+            alert(data);
+        }
+
+    });
+});
+$("#blacklist").click(function() {
+    var place = "{{ PLACE_ID | safe }}";
+    $.get("/add_blacklist", {place:place}, function(data) {
+        if (data == "Added") {
+            $("#blacklist").addClass("info");
+            $("#blacklistIcon").html("<i class='fi-x'></i> ")
+        } else if (data == "Removed") {
+            $("#blacklist").removeClass("info");
+            $("#blacklistIcon").html("")
+        } else {
+            alert(data);
+        }
+
+    });
+});
 initialize("{{ SEARCH_LOC | safe }}", "{{ PLACE_ID | safe }}");
 </script>
 {% endblock %}

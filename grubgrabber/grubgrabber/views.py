@@ -3,7 +3,7 @@ from django.http import HttpResponse
 import requests
 import urllib
 import json
-from grubgrabber.models import Like, UserProfile, Favourite
+from grubgrabber.models import Like, UserProfile, Favourite, Blacklist
 from models import Like, UserProfile, Favourite
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -35,10 +35,10 @@ def place(request, SEARCH_LOC, PLACE_ID):
     args['SEARCH_LOC'] = SEARCH_LOC
     args['PLACE_ID'] = PLACE_ID
     args["mapsKey"] = GOOGLEKEY
-    
+
     if request.method == 'POST':
         Favourite.objects.get_or_create(user=request.user, place_id=PLACE_ID)
-        
+
     return render(request, "place.html", args)
 
 @login_required
@@ -47,7 +47,7 @@ def register_profile(request):
     context_dict = {}
 
     if request.method == 'POST':
-    
+
         try:
             profile = UserProfile.objects.get(user=request.user)
             profile_form = UserProfileForm(request.POST, instance=profile)
@@ -84,3 +84,23 @@ def profile(request):
     except:
         pass
     return render(request, 'profile.html', context_dict)
+
+@login_required
+def addFavourite(request):
+    print request.GET["place"]
+    if Favourite.objects.filter(user=request.user, place_id=request.GET["place"]).exists():
+        Favourite.objects.filter(user=request.user, place_id=request.GET["place"]).delete()
+        return HttpResponse("Removed")
+    else:
+        Favourite.objects.create(user=request.user, place_id=request.GET["place"])
+        return HttpResponse("Added")
+
+@login_required
+def addBlacklist(request):
+    print request.GET["place"]
+    if Blacklist.objects.filter(user=request.user, place_id=request.GET["place"]).exists():
+        Blacklist.objects.filter(user=request.user, place_id=request.GET["place"]).delete()
+        return HttpResponse("Removed")
+    else:
+        Blacklist.objects.create(user=request.user, place_id=request.GET["place"])
+        return HttpResponse("Added")
