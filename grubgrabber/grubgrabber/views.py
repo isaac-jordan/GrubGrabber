@@ -36,9 +36,6 @@ def place(request, SEARCH_LOC, PLACE_ID):
     args['PLACE_ID'] = PLACE_ID
     args["mapsKey"] = GOOGLEKEY
 
-    if request.method == 'POST':
-        Favourite.objects.get_or_create(user=request.user, place_id=PLACE_ID)
-
     return render(request, "place.html", args)
 
 @login_required
@@ -79,8 +76,12 @@ def profile(request):
     try:
         user_profile = UserProfile.objects.get(user=user)
         context_dict['user_profile'] = user_profile
-        favourites = Favourite.objects.all()
+        favourites = Favourite.objects.select_related().filter(user=user)
         context_dict['favourites'] = favourites
+        likes = Like.objects.select_related().filter(user=user)
+        context_dict['likes'] = likes
+        blacklist = Blacklist.objects.select_related().filter(user=user)
+        context_dict['blacklist'] = blacklist
     except:
         pass
     return render(request, 'profile.html', context_dict)

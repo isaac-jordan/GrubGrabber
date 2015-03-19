@@ -36,7 +36,7 @@ def populate():
     add_blacklist(place_id ="ChIJ-7gDJtYRiEgRhcV1zoFOCXc",
         user = user1)
 
-    # Print out what we have added to the user.
+     #Print out what we have added to the user.
     print "added :)"
 
 def add_user(name, email, password):

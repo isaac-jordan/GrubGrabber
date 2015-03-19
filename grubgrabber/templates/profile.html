@@ -33,18 +33,32 @@ img {
         {% else %}
             N/A
         {% endif %}
-		
-		 {% if favourites %}
-		
-            <ul class="list-group">
-			  <strong> Favourites: </strong>
-                {% for Favourite in favourites %}
-					<li class ="list-group-item">{{ Favourite.place_id }}</li>
-				{% endfor %}
+		<br>
+		</br>
+		<div class="row">
+		{% if favourites %}
+           <ul class="list-group">
+			 <strong> Favourites: </strong>
+            {% for Favourite in favourites %}
+				<li class ="list-group-item">{{ Favourite.place_id }}</li>
+			{% endfor %}
             </ul>
         {% else %}
             <strong>No favourites</strong>
         {% endif %}
+		</div>
+		<div class="row">
+		{% if blacklist %}
+           <ul class="list-group">
+			 <strong> Blacklist : </strong>
+            {% for Blacklist in blacklist %}
+				<li class ="list-group-item">{{ Blacklist.place_id }}</li>
+			{% endfor %}
+            </ul>
+        {% else %}
+            <strong>No favourites</strong>
+        {% endif %}
+		</div>
       <br />
       <form action="{% url 'register_profile' %}">
         <input class="button small" type="submit" value="Edit Profile">
