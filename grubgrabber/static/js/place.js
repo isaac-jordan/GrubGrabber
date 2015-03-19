@@ -31,7 +31,7 @@ function initialize(searchLatLng, PLACE_ID) {
 
 function callback(result, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
-        console.log(result);
+        //console.log(result);
         setResult(result);
         new google.maps.Marker({
             map: map,
@@ -49,7 +49,7 @@ function callback(result, status) {
         };
         directionsService.route(request, function(response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
-                console.log(response);
+                //console.log(response);
                 directionsDisplay.setDirections(response);
             }
         });

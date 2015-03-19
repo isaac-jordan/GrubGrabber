@@ -35,8 +35,7 @@
         <div class="small-12 columns">
           <br>
           <a class='button secondary' onClick='getNextResult()'>Get Next</a>
-          <a id ='thisPlace' class='button success' >Eat Here!</a>
-          <a class='button'>Favourite</a>
+          <a id ='thisPlace' class='button success' data-place=''>Eat Here!</a>
           <a class='button alert'>Blacklist</a>
         </div>
       </div>
@@ -54,6 +53,7 @@
 <script src="{% static "js/search.js" %}"></script>
 
 <script>
+initialize();
 codeAddress("{{ searchParam }}");
 </script>
 {% endblock %}

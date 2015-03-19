@@ -9,7 +9,7 @@ class Favourite(models.Model):
         return self.user.username + " favourited " + self.place_id
 
 class Like(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, blank=True, null=True)
     place_id = models.CharField(max_length = 100)
     name = models.CharField(max_length = 30)
 

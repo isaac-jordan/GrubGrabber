@@ -3,7 +3,7 @@ var geocoder;
 var service;
 var infowindow;
 var searchLocation;
-var searchResults;
+var searchResults = [];
 
 function initialize() {
   geocoder = new google.maps.Geocoder();
@@ -40,10 +40,29 @@ function codeAddress(address) {
 
 function callback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
-    console.log(results);
-    searchResults = results;
-    var result = searchResults.shift();
-    setResult(result);
+    var data = []; //Array of placeIDs
+    results.forEach(function(result) {
+        data.push(result["place_id"]);
+    });
+    $.ajax({
+        type: "POST",
+        url: "/sort_results/",
+        data: {"data": data},
+        success: function(sortedResults) {
+            //SortedResults should be an array of indices (integers).
+            //The indices correspond to the position of the place in results.
+            sortedResults["resultArray"].forEach(function(result) {
+                searchResults.push(results[result]);
+            });
+            //console.log(searchResults);
+            setResult(searchResults.shift());
+        },
+        traditional: true,
+        error: function(result) {
+            console.log(result["responseText"]);
+        },
+    });
+
   }
 }
 
@@ -52,6 +71,7 @@ function setResult(result) {
     $("#placeLocation").html(result["vicinity"]);
     $("#typeIcon").attr("src",result["icon"]);
     $("#thisPlace").attr("href","/place/" + searchLocation + "/" + result["place_id"] + "/");
+    $("#thisPlace").attr("data-place", result["place_id"]);
     if (result["photos"] != undefined) {
       $("#placePhoto").attr("src",result["photos"][0].getUrl({'maxHeight': 150}));
     } else {
@@ -72,4 +92,17 @@ function getNextResult() {
   }
 }
 
-initialize();
+$("#thisPlace").click(function() {
+    var place = $("#thisPlace").attr("data-place");
+    var name = $("#placeName").html();
+    $.ajax({type:"post",
+    url:"/add_like/",
+    data: {"place":place, "name":name},
+    success: function(result) {
+        //console.log("Like added.");
+    },
+    error: function(error) {
+        console.log(error["responseText"]);
+    },
+    });
+})

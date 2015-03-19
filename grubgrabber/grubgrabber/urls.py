@@ -19,5 +19,7 @@ urlpatterns = patterns('',
     url(r'^profile$', 'grubgrabber.views.profile',name='profile'),
     url(r'^add_favourite/$', 'grubgrabber.views.addFavourite', name='addFavourite'),
     url(r'^add_blacklist/$', 'grubgrabber.views.addBlacklist', name='addBlacklist'),
+    url(r'^add_like/$', 'grubgrabber.views.addLike', name='addLike'),
+    url(r'^sort_results/$', 'grubgrabber.views.sort_search_results', name='sortResults'),
     url(r'^admin/', include(admin.site.urls)),
 )
