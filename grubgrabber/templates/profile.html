@@ -4,6 +4,8 @@
 
 {% block content %}
 
+{% load staticfiles %}
+
 <!-- Isaac, move this to scss -->
 <style>
 img {
@@ -14,25 +16,27 @@ img {
 
 <div class="row">
   <div class="large-12 columns">
-    <h1>Your Profile</h1>
     <div class="row">
-    
-      <h2> {{ user.username }} </h2>
+    <h1>{{ user.username }}'s Profile</h1>
       
       {% if user_profile.picture %}
 	   I have a picture :)
        <img src="{{ user_profile.picture.url }}" HEIGHT="200" WIDTH="250"/>
       {% endif %}
       
+      <div class="row">
       <b> Email Address: </b>
       {{ user.email }}
-      
-        <b> About: </b>
-        {% if user_profile %}
+      </div>
+	  <br />
+      	<div class="row">
+          <b> About: </b>
+          {% if user_profile %}
             {{ user_profile.about }}
         {% else %}
             N/A
         {% endif %}
+        </div>
 		<br>
 		</br>
 		<div class="row">
@@ -56,7 +60,7 @@ img {
 			{% endfor %}
             </ul>
         {% else %}
-            <strong>No favourites</strong>
+            <strong>No blacklisted</strong>
         {% endif %}
 		</div>
       <br />
