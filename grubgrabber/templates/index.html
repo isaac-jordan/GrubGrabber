@@ -8,10 +8,17 @@
   <img src="{% static 'img/grubgrabber.jpg' %}" width="1200" alt="Grub Grabber" />
   </div>
   <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+  <div class="row">
+      <div class="small-1 columns">
+          <i class='fi-magnifying-glass large'></i>
+      </div>
+      <div class="small-11 columns">
     <form action="search/" method="post">
       {% csrf_token %}
-      <input class="mainSearch" type="text" name="search" placeholder="&#8981; Enter your approximate location"/>
+      <input class="mainSearch" type="text" name="search" placeholder="Enter your approximate location"/>
     </form>
+</div>
+</div>
   </div>
 </div>
 
@@ -23,7 +30,7 @@
 
         <h4>Recent Eats</h4><hr>
         {% if likes %}
-		
+
             <ul class="list-group">
                 {% for Like in likes %}
 					<li class ="list-group-item"><a href="/place/(55.864237, -4.251805999999988)/{{ Like.place_id }}">{{ Like.name }}</a></li>
@@ -32,10 +39,10 @@
         {% else %}
             <strong>No recent eats</strong>
         {% endif %}
-      </div> 
+      </div>
 
       <!-- Log in -->
-	  
+
 	  <form class="form-signin" role="form" method="post" action=".">
       <div class="small-5 columns">
 	  {% csrf_token %}

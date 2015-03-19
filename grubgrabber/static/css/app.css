@@ -6652,4 +6652,11 @@ input.mainSearch {
   font-size: 30px;
   height: 60px; }
 
+i.large {
+  font-size: 2.5rem; }
+
+img.profile {
+  float: left;
+  margin: 10px; }
+
 /*# sourceMappingURL=app.css.map */

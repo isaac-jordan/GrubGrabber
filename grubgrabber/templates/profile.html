@@ -5,25 +5,16 @@
 {% block content %}
 
 {% load staticfiles %}
-
-<!-- Isaac, move this to scss -->
-<style>
-img {
-  float: left;
-  margin: 10px;
-}
-</style>
-
 <div class="row">
   <div class="large-12 columns">
     <div class="row">
     <h1>{{ user.username }}'s Profile</h1>
-      
+
       {% if user_profile.picture %}
 	   I have a picture :)
-       <img src="{{ user_profile.picture.url }}" HEIGHT="200" WIDTH="250"/>
+       <img class="profile" src="{{ user_profile.picture.url }}" HEIGHT="200" WIDTH="250"/>
       {% endif %}
-      
+
       <div class="row">
       <b> Email Address: </b>
       {{ user.email }}
