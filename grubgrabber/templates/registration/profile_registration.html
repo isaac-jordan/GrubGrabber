@@ -3,7 +3,8 @@
 {% block title %}Add Profile{% endblock %}
 
 {% block content %}
-
+<div class="row">
+  <div class="large-12 columns">
     {% if registered_profile %}
         <div class="page-header">
             <h2 class="form-signin-heading">Registration Completed</h2>
@@ -24,4 +25,6 @@
             </div>
         </form>
     {% endif %}
+  </div>
+</div>
 {% endblock %}
