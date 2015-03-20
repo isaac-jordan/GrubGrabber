@@ -11,9 +11,8 @@
         </div>
         Thank you for registering!
     {% else %}
-        <form role="form"  method="post" action=".">
+        <form role="form"  method="post" action="." enctype="multipart/form-data">
             {% csrf_token %}
-            <form data-abide>
               <div class="form-group" >
                 <div class="small-9 columns">
                   <h2 class="form-signin-heading">Add Profile Information</h2>
@@ -21,7 +20,6 @@
                   <button class="button expand" type="submit" value="Submit">Add Profile</button>
                 </div>
               </div>
-            </form>
             </div>
         </form>
     {% endif %}
