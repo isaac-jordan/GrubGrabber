@@ -55,21 +55,6 @@
 <script src="{% static "js/place.js" %}"></script>
 
 <script>
-$("#favourite").click(function() {
-    var place = "{{ PLACE_ID | safe }}";
-    $.get("/add_favourite", {place:place}, function(data) {
-        if (data == "Added") {
-            $("#favourite").addClass("info");
-            $("#favouriteIcon").html("<i class='fi-x'></i> ")
-        } else if (data == "Removed") {
-            $("#favourite").removeClass("info");
-            $("#favouriteIcon").html("")
-        } else {
-            alert(data);
-        }
-
-    });
-});
 initialize("{{ SEARCH_LOC | safe }}", "{{ PLACE_ID | safe }}");
 </script>
 {% endblock %}

@@ -104,25 +104,24 @@ def profile(request):
 
 @login_required
 def addFavourite(request):
-    print request.GET["place"]
-    if Favourite.objects.filter(user=request.user, place_id=request.GET["place"]).exists():
-        Favourite.objects.filter(user=request.user, place_id=request.GET["place"]).delete()
+    print request.POST["place"]
+    if Favourite.objects.filter(user=request.user, place_id=request.POST["place"]).exists():
+        Favourite.objects.filter(user=request.user, place_id=request.POST["place"]).delete()
         return HttpResponse("Removed")
     else:
-        Favourite.objects.create(user=request.user, place_id=request.GET["place"])
+        Favourite.objects.create(user=request.user, place_id=request.POST["place"], name=request.POST["name"])
         return HttpResponse("Added")
 
 @login_required
 def addBlacklist(request):
-    print request.GET["place"]
-    if Blacklist.objects.filter(user=request.user, place_id=request.GET["place"]).exists():
-        Blacklist.objects.filter(user=request.user, place_id=request.GET["place"]).delete()
+    print request.POST["place"]
+    if Blacklist.objects.filter(user=request.user, place_id=request.POST["place"]).exists():
+        Blacklist.objects.filter(user=request.user, place_id=request.POST["place"]).delete()
         return HttpResponse("Removed")
     else:
-        Blacklist.objects.create(user=request.user, place_id=request.GET["place"])
+        Blacklist.objects.create(user=request.user, place_id=request.POST["place"], name=request.POST["name"])
         return HttpResponse("Added")
 
-@csrf_exempt #BAD BAD BAD
 def addLike(request):
     if request.user.is_authenticated():
         Like.objects.create(user=request.user, place_id=request.POST["place"], name=request.POST["name"])
@@ -130,7 +129,6 @@ def addLike(request):
         Like.objects.create(place_id=request.POST["place"], name=request.POST["name"])
     return HttpResponse("Like added");
 
-@csrf_exempt
 def sort_search_results(request):
     initResults = request.POST.getlist('data')
     user = request.user

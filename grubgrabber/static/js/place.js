@@ -94,16 +94,48 @@ function setResult(result) {
 
 $("#blacklist").click(function() {
     var place = $("#placeName").attr("data-place");
-    $.get("/add_blacklist", {place:place}, function(data) {
-        if (data == "Added") {
-            $("#blacklist").addClass("info");
-            $("#blacklistIcon").html("<i class='fi-x'></i> ")
-        } else if (data == "Removed") {
-            $("#blacklist").removeClass("info");
-            $("#blacklistIcon").html("")
-        } else {
-            alert(data);
-        }
+    var name = $("#placeName").html();
+    $.ajax({
+        type:"POST",
+        url:"/add_blacklist/",
+        data:{"place":place, "name":name},
+        success:function(data) {
+            if (data == "Added") {
+                $("#blacklist").addClass("info");
+                $("#blacklistIcon").html("<i class='fi-x'></i> ")
+            } else if (data == "Removed") {
+                $("#blacklist").removeClass("info");
+                $("#blacklistIcon").html("")
+            } else {
+                alert(data);
+            }
+        },
+        error: function(result) {
+            console.log(result["responseText"]);
+        },
+    });
+});
 
+$("#favourite").click(function() {
+    var place = $("#placeName").attr("data-place");
+    var name = $("#placeName").html();
+    $.ajax({
+        type:"POST",
+        url:"/add_favourite/",
+        data:{place:place, name:name},
+        success: function(data) {
+            if (data == "Added") {
+                $("#favourite").addClass("info");
+                $("#favouriteIcon").html("<i class='fi-x'></i> ")
+            } else if (data == "Removed") {
+                $("#favourite").removeClass("info");
+                $("#favouriteIcon").html("")
+            } else {
+                alert(data);
+            }
+        },
+        error: function(result) {
+            console.log(result["responseText"]);
+        },
     });
 });
