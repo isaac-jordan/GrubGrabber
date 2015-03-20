@@ -44,7 +44,11 @@
 
 	  <form class="form-signin" role="form" method="post" action=".">
       <div class="small-5 columns">
-	  {% csrf_token %}
+        {% if user.is_authenticated %}
+        <p> You're logged in! </p>
+        <p> View your profile <a href="{% url 'profile' %}">here</a>. </p>
+        {% else %}
+	      {% csrf_token %}
         <h4>Log In</h4>
         <div class="row">
           <div class="small-3 columns">
@@ -67,6 +71,7 @@
 		</form>
         <p>Not got an account? Register <a href="{% url 'registration_register' %}">here</a>.</p>
       </div>
+      {% endif %}
 
     </div>
   </div>
