@@ -11,26 +11,24 @@
     <h1>{{ user.username }}'s Profile</h1>
 
       {% if user_profile.picture %}
-	   I have a picture :)
        <img class="profile" src="{{ user_profile.picture.url }}" HEIGHT="200" WIDTH="250"/>
       {% endif %}
 
       <div class="row">
+      <br />
       <b> Email Address: </b>
       {{ user.email }}
-      </div>
 	  <br />
-      	<div class="row">
-          <b> About: </b>
-          {% if user_profile %}
-            {{ user_profile.about }}
+      <b> About: </b>
+        {% if user_profile %}
+          {{ user_profile.about }}
         {% else %}
-            N/A
+          N/A
         {% endif %}
-        </div>
-		<br>
-		</br>
+	  <br />
+    </div>
 		<div class="row">
+        <br />
 		{% if favourites %}
            <ul class="list-group">
 			 <strong> Favourites: </strong>
