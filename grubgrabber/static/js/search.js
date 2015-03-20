@@ -2,6 +2,7 @@ var map;
 var geocoder;
 var service;
 var infowindow;
+var paginationCache;
 var searchLocation;
 var searchResults = [];
 
@@ -38,8 +39,9 @@ function codeAddress(address) {
     });
 }
 
-function callback(results, status) {
+function callback(results, status, pagination) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
+        paginationCache = pagination;
         var data = []; //Array of placeIDs
         results.forEach(function(result) {
             data.push(result["place_id"]);
@@ -88,7 +90,10 @@ function getNextResult() {
     if (result != undefined) {
         setResult(result);
     } else {
-        alert("No more places.");
+        alert("Getting more!");
+        if (paginationCache.hasNextPage) {
+            paginationCache.nextPage();
+        }
     }
 }
 
@@ -125,10 +130,9 @@ $("#blacklist").click(function() {
             } else {
                 alert(data);
             }
-
         },
         error: function(result) {
             console.log(result["responseText"]);
         },
     });
-    });
+});
