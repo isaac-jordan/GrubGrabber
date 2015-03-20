@@ -128,7 +128,7 @@ $("#blacklist").click(function() {
                 $("#blacklist").removeClass("info");
                 $("#blacklistIcon").html("")
             } else {
-                alert(data);
+                console.log(data);
             }
         },
         error: function(result) {
