@@ -15,7 +15,7 @@
       <div class="small-11 columns">
     <form action="search/" method="post">
       {% csrf_token %}
-      <input class="mainSearch" type="text" name="search" placeholder="Enter your approximate location"/>
+      <input id="mainSearch" class="mainSearch" type="text" name="search" placeholder="Enter your approximate location"/>
     </form>
 </div>
 </div>
@@ -71,4 +71,9 @@
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block javascript %}
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+<script src="{% static "js/index.js" %}"></script>
 {% endblock %}
