@@ -33,8 +33,13 @@
             </div>
             <div class="row">
                 <div class="small-12 columns">
+					{% if user.is_authenticated %}
                     <a class="button" id="favourite"><span id="favouriteIcon"></span>Favourite</a>
                     <a class='button alert' id="blacklist"><span id="blacklistIcon"></span>Blacklist</a>
+					{% else %}
+					<a class="button" href="/accounts/register/"><span id="favouriteIcon"></span>Favourite</a>
+					<a class='button alert' href="/accounts/register/"><span id="blacklistIcon"></span>Blacklist</a>
+					{% endif %}
                 </div>
             </div>
         </div>
