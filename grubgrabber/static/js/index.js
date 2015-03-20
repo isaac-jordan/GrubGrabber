@@ -4,4 +4,3 @@ function initialise() {
 }
 
 google.maps.event.addDomListener(window, 'load', initialise);
-alert();
