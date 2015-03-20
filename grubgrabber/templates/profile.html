@@ -35,7 +35,7 @@
            <ul class="list-group">
 			 <strong> Favourites: </strong>
             {% for Favourite in favourites %}
-				<li class ="list-group-item">{{ Favourite.place_id }}</li>
+			    <li class ="list-group-item"><a href="/place/(55.864237, -4.251805999999988)/{{ Favourite.place_id }}">{{ Favourite.name }}</a></li>
 			{% endfor %}
             </ul>
         {% else %}
@@ -47,7 +47,7 @@
            <ul class="list-group">
 			 <strong> Blacklist : </strong>
             {% for Blacklist in blacklist %}
-				<li class ="list-group-item">{{ Blacklist.place_id }}</li>
+				<li class ="list-group-item"><a href="/place/(55.864237, -4.251805999999988)/{{ Blacklist.place_id }}">{{ Blacklist.name }}</a></li>
 			{% endfor %}
             </ul>
         {% else %}
