@@ -19,21 +19,6 @@ def index(request):
     return render(request, "index.html", context_dict)
 
 def search(request):
-    ########the simple search algorithm#####
-    #get 20 nearest items
-    #exclude ones in blacklist
-    #sort by favourites
-    #return results
-
-    ######the not so simple search algorithm#####
-    # get nearest 20 items
-    # exclude blacklist
-    # asign weighting variable to each ( first =20, 2nd = 19, etc.) (maybe implemented)
-    # sort by most favourited (first =20, 2nd =19, etc.) (maybe implemented)
-    # sort by most liked (same as about) (maybe implemented)
-    # sort by most blacklisted (same as above but -) (not implemented)
-    # sort by most disliked (same as about but -)
-
     context_dict = {}
     if request.method == "GET":
         return redirect("/")
@@ -146,10 +131,7 @@ def sort_search_results(request):
         result_list[i][1] += (20 - i)
 
     print "After distance weighting" + str(result_list)
-    #sort by number of favourites & apply weighting
-    #result_list.sort(favourite_compare)
-    #for i in range(0,len(result_list)):
-    #    result_list[i][1] += (20 - i)
+
     favourites = Favourite.objects.all() #One DB call
     if request.user.is_authenticated():
         userFavourites = favourites.filter(user=user).values_list('place_id', flat=True)
@@ -163,16 +145,7 @@ def sort_search_results(request):
         result[1] += len(liked) #Add number of likes
 
     print "After weighting " + str(result_list)
-    #sort by likes & add weighting
-    #result_list.sort(like_compare)
-    #for i in range(0,len(result_list)):
-    #    result_list[i][1] += (20 - i)
-
-    #print "After likes weighting" + str(result_list)
-    #sort by weighted values and return (only prints at teh moment, dont know what type to return?)
     result_list.sort(weighting_compare)
-    #for i in range(0,len(result_list)):
-    #    print result_list[i][0]
 
     print "After sorting" + str(result_list)
     resultArray = []
@@ -196,7 +169,9 @@ def remove_blacklist_items(user, results):
         for place_id in results:
                 if not (place_id in blacklist):
                     returnResults.append(place_id)
-    return returnResults
+        return returnResults
+    else:
+        return results
 
 def number_of_favourites(place_id):
     favourites = Favourite.objects.all().filter(place_id=place_id)
