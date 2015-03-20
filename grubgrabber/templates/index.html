@@ -8,18 +8,19 @@
   <img src="{% static 'img/grubgrabber.jpg' %}" width="1200" alt="Grub Grabber" />
   </div>
   <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+  <br /><br /><br />
   <div class="row">
       <div class="small-1 columns">
           <i class='fi-magnifying-glass large'></i>
       </div>
       <div class="small-11 columns">
-    <form action="search/" method="post">
-      {% csrf_token %}
-      <input id="mainSearch" class="mainSearch" type="text" name="search" placeholder="Enter your approximate location"/>
-    </form>
-</div>
-</div>
+      <form action="search/" method="post">
+        {% csrf_token %}
+        <input id="mainSearch" class="mainSearch" type="text" name="search" placeholder="Enter your approximate location"/>
+      </form>
+      <br /><br /><br />
   </div>
+</div>
 
 <br>
 <div class="row">
@@ -42,36 +43,10 @@
 
       <!-- Log in -->
 
-	  <form class="form-signin" role="form" method="post" action=".">
-      <div class="small-5 columns">
-        {% if user.is_authenticated %}
-        <p> You're logged in! </p>
-        <p> View your profile <a href="{% url 'profile' %}">here</a>. </p>
-        {% else %}
-	      {% csrf_token %}
-        <h4>Log In</h4>
-        <div class="row">
-          <div class="small-3 columns">
-            <label for="right-label" class="right inline">Username</label>
-          </div>
-          <div class="small-9 columns">
-            <input class="form-control" placeholder="Username" id="id_username" maxlength="254" name="username" type="text" required autofocus=""/>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="small-3 columns">
-            <label for="right-label" class="right inline">Password</label>
-          </div>
-          <div class="small-9 columns">
-            <input type="password" class="form-control" placeholder="Password" id="id_password" name="password" required />
-          </div>
-        </div>
-		<a class="button expand" type="submit" value="Submit">Sign in</a>
-		</form>
-        <p>Not got an account? Register <a href="{% url 'registration_register' %}">here</a>.</p>
+      <div class="small-6 columns">
+        <b> Can't decide what to each for lunch? </b><br />
+        Simply type in your location into the box above and we will do the thinking for you!
       </div>
-      {% endif %}
 
     </div>
   </div>
