@@ -12,7 +12,7 @@
                     <img id="typeIcon" class="left" height="49" width="49"/>
                 </div>
                 <div class="small-7 columns">
-                    <h1><span id="placeName"></span></h1>
+                    <h1><span id="placeName" data-place=''></span></h1>
                 </div>
                 <div class="small-4 columns">
                     <div id="placePhotoContainer">
@@ -64,21 +64,6 @@ $("#favourite").click(function() {
         } else if (data == "Removed") {
             $("#favourite").removeClass("info");
             $("#favouriteIcon").html("")
-        } else {
-            alert(data);
-        }
-
-    });
-});
-$("#blacklist").click(function() {
-    var place = "{{ PLACE_ID | safe }}";
-    $.get("/add_blacklist", {place:place}, function(data) {
-        if (data == "Added") {
-            $("#blacklist").addClass("info");
-            $("#blacklistIcon").html("<i class='fi-x'></i> ")
-        } else if (data == "Removed") {
-            $("#blacklist").removeClass("info");
-            $("#blacklistIcon").html("")
         } else {
             alert(data);
         }

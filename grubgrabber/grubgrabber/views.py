@@ -132,11 +132,11 @@ def addLike(request):
 
 @csrf_exempt
 def sort_search_results(request):
-    results = request.POST.getlist('data')
+    initResults = request.POST.getlist('data')
     user = request.user
-    print "Before blacklist " + str(results)
+    print "Before blacklist " + str(initResults)
     #filter out blacklisted items
-    results = remove_blacklist_items(user, results)
+    results = remove_blacklist_items(user, initResults)
     print "After blacklist " + str(results)
     #create sortable list of lists [,[place_id, weighting value],[etc.]]
     result_list = []
@@ -179,9 +179,12 @@ def sort_search_results(request):
     print "After sorting" + str(result_list)
     resultArray = []
     for result in result_list:
-        for i in range(len(results)):
-            if result[0] == results[i]:
+        for i in range(len(initResults)):
+            if result[0] == initResults[i]:
+                print str(result[0]) + " " + str(initResults[i])
                 resultArray.append(i)
+                break
+    print initResults
     print resultArray
 
     #Return a list of indices, the index refers to it's position in the original list.
@@ -189,13 +192,13 @@ def sort_search_results(request):
     return JsonResponse({"resultArray": resultArray})
 
 def remove_blacklist_items(user, results):
+    returnResults = []
     if user.is_authenticated():
-        blacklist = Blacklist.objects.select_related().filter(user=user)
+        blacklist = Blacklist.objects.select_related().filter(user=user).values_list('place_id', flat=True)
         for place_id in results:
-            for not_here in blacklist:
-                if place_id == not_here.place_id:
-                    results.remove(place_id)
-    return results
+                if not (place_id in blacklist):
+                    returnResults.append(place_id)
+    return returnResults
 
 def number_of_favourites(place_id):
     favourites = Favourite.objects.all().filter(place_id=place_id)

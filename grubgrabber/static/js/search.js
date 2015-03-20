@@ -71,7 +71,7 @@ function setResult(result) {
     $("#placeLocation").html(result["vicinity"]);
     $("#typeIcon").attr("src",result["icon"]);
     $("#thisPlace").attr("href","/place/" + searchLocation + "/" + result["place_id"] + "/");
-    $("#thisPlace").attr("data-place", result["place_id"]);
+    $("#placeName").attr("data-place", result["place_id"]);
     if (result["photos"] != undefined) {
       $("#placePhoto").attr("src",result["photos"][0].getUrl({'maxHeight': 150}));
     } else {
@@ -93,7 +93,7 @@ function getNextResult() {
 }
 
 $("#thisPlace").click(function() {
-    var place = $("#thisPlace").attr("data-place");
+    var place = $("#placeName").attr("data-place");
     var name = $("#placeName").html();
     $.ajax({type:"post",
     url:"/add_like/",
@@ -105,4 +105,20 @@ $("#thisPlace").click(function() {
         console.log(error["responseText"]);
     },
     });
-})
+});
+
+$("#blacklist").click(function() {
+    var place = $("#placeName").attr("data-place");
+    $.get("/add_blacklist", {place:place}, function(data) {
+        if (data == "Added") {
+            $("#blacklist").addClass("info");
+            $("#blacklistIcon").html("<i class='fi-x'></i> ")
+        } else if (data == "Removed") {
+            $("#blacklist").removeClass("info");
+            $("#blacklistIcon").html("")
+        } else {
+            alert(data);
+        }
+
+    });
+});

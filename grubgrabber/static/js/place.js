@@ -64,6 +64,7 @@ function setResult(result) {
     $("#placeRating").append(result["rating"]);
     $("#placeWebsite").append(result["website"]);
     $("#placeWebsite").attr("href", result["website"]);
+    $("#placeName").attr("data-place", result["place_id"]);
     if (result["reviews"] != undefined) {
         result["reviews"].forEach(function(review) {
             var html = "<div class='review'>";
@@ -90,3 +91,19 @@ function setResult(result) {
         $("#placePhoto").attr("src","http://placehold.it/329x150&text=No Place Image");
     }
 }
+
+$("#blacklist").click(function() {
+    var place = $("#placeName").attr("data-place");
+    $.get("/add_blacklist", {place:place}, function(data) {
+        if (data == "Added") {
+            $("#blacklist").addClass("info");
+            $("#blacklistIcon").html("<i class='fi-x'></i> ")
+        } else if (data == "Removed") {
+            $("#blacklist").removeClass("info");
+            $("#blacklistIcon").html("")
+        } else {
+            alert(data);
+        }
+
+    });
+});
