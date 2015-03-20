@@ -16,6 +16,24 @@ GOOGLEKEY = open("key.txt").readline()
 def index(request):
     likes = Like.objects.all()[:8:-1]
     context_dict = {'likes' : likes}
+    
+    favourites = Favourite.objects.all()
+    favourite_ids = []
+    for this in favourites:
+        favourite_ids.append(this.place_id)
+        
+    favourite_ids.sort(mostfav)
+    
+    #delete duplicates
+    mostfavs =list(set(favourite_ids))
+    
+    #mostfavs = ['ChIJWxM5_p9PiEgRAC7To6WEPFA']
+    top_favs = []
+    
+   # for i in range (8,0):
+        #this = Favourites.objects.select_related().filter(place_id = mostfavs[i])
+        #top_favs.append(this)[0]
+    context_dict['favourites'] = mostfavs
     return render(request, "index.html", context_dict)
 
 def search(request):
@@ -179,6 +197,11 @@ def number_of_favourites(place_id):
 
 def favourite_compare(a,b):
     if number_of_favourites(a[0]) >= number_of_favourites(b[0]):
+        return 1
+    return -1
+
+def mostfav(a,b):
+    if number_of_favourites(a) >= number_of_favourites(b):
         return 1
     return -1
 
