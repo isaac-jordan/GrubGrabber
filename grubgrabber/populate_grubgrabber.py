@@ -1,10 +1,10 @@
 import os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'grubgrabber.settings')
 import django
-django.setup()
-from grubgrabber.models import *
+from grubgrabber.models import User, Favourite, Like, Dislike, Blacklist, UserProfile
 from django.contrib.auth.models import User
 
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'grubgrabber.settings')
+django.setup()
 
 def populate():
     user1 = add_user('DingoDave','dingodave@gmail.com','dingos',
@@ -181,7 +181,7 @@ def populate():
 def add_user(name, email, password, about):
     u = User.objects.get_or_create(username = name, email=email, password=password)[0]
     u.save()
-    p = UserProfile.objects.get_or_create(user = u, about = about)
+    UserProfile.objects.get_or_create(user = u, about = about)
     return u
 
 def add_like(name, place_id, user):
