@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^search/getKey$', 'grubgrabber.views.getKey',name='getKey'),
     ## place page accessible through /place/USER_LOCATION/PLACE_ID
     url(r'^place/(?P<SEARCH_LOC>.*)/(?P<PLACE_ID>.*)/$', 'grubgrabber.views.place',name='place'),
+    url(r'^place/(?P<PLACE_ID>.*)/$', 'grubgrabber.views.placeNoLoc', name='placeNoLoc'),
     url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
     (r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^add_profile/$', 'grubgrabber.views.register_profile',name='register_profile'),

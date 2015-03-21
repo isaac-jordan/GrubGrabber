@@ -1,0 +1,13 @@
+{% extends "place.html" %}
+{% load staticfiles %}
+
+{% block javascript %}
+<script src="http://maps.googleapis.com/maps/api/js?key={{ mapsKey }}&libraries=places"></script>
+<script src="{% static "js/slick.min.js" %}"></script>
+<script src="{% static "js/place.js" %}"></script>
+<script src="{% static "js/placeNoLoc.js" %}"></script>
+
+<script>
+initialize("{{ PLACE_ID | safe }}");
+</script>
+{% endblock %}

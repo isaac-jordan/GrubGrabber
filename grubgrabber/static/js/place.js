@@ -33,14 +33,6 @@ function callback(result, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
         console.log(result);
         setResult(result);
-        new google.maps.Marker({
-            map: map,
-            position: new google.maps.LatLng(searchLocation[0], searchLocation[1]),
-        });
-        new google.maps.Marker({
-            map: map,
-            position: result["geometry"]["location"],
-        });
         var directionsService = new google.maps.DirectionsService();
         var request = {
             origin: new google.maps.LatLng(searchLocation[0], searchLocation[1]),
@@ -75,6 +67,8 @@ function setResult(result) {
             html += "</div>";
             $("#placeReviews").append(html);
         });
+    } else {
+        $("#placeReviews").html("There are no reviews to show.");
     }
     $('.placeReviews').slick({
         infinite: true,

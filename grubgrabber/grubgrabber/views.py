@@ -50,12 +50,16 @@ def getKey(request):
 
 def place(request, SEARCH_LOC, PLACE_ID):
     args = {}
-    print SEARCH_LOC
     args['SEARCH_LOC'] = SEARCH_LOC
     args['PLACE_ID'] = PLACE_ID
     args["mapsKey"] = GOOGLEKEY
 
     return render(request, "place.html", args)
+
+def placeNoLoc(request, PLACE_ID):
+    args = {}
+    args['PLACE_ID'] = PLACE_ID
+    return render(request, "placeNoLoc.html", args)
 
 @login_required
 def register_profile(request):
