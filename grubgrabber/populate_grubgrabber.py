@@ -12,14 +12,14 @@ def populate():
 
     user2 = add_user('Python','snakeboy@snakemail.com','snakey',
                      'How does this thing work?')
-    
+
     user3 = add_user('Estebar','hotboy89@gmail.com','chickens12',
                      'Hola amigos')
-    
+
     user4 = add_user('Moleman','reallyunderground@yahoomail.com','tunneling',
                      'average foodie consumer by day, mole by night')
-    
-    user5 = add_user('SteveApple','IReallyDontCare@gmail.com','12345', '')
+
+    user5 = add_user('test','test@gmail.com','test', 'test description')
 
     user5 = add_user('JessicaRabbit','bugsywoman@gmail.com','rogerroger1',
                      'Hey people!')
@@ -27,7 +27,7 @@ def populate():
     user6 = add_user('AnonFooder','73359000@haxormail.com','grabbagrabba',
                      'Who am i?')
 
-    add_like(name='Gregs',
+    add_like(name='Greggs',
         place_id="ChIJ-4qF7s5FiEgR6bRXbXOZeek",
         user = user1)
 
@@ -70,7 +70,7 @@ def populate():
     add_like(name='Chunky Chicken',
         place_id="ChIJpavn3ChEiEgRDqLFmr1wJ1U",
         user = user1)
-    
+
     add_favourite(name='Chunky Chicken',
         place_id="ChIJpavn3ChEiEgRDqLFmr1wJ1U",
         user = user1)
@@ -82,7 +82,7 @@ def populate():
     add_like(name='Tchai-Ovna House of Tea',
         place_id="ChIJWWPdpzJEiEgRdd3UZcKheik",
         user = user1)
-    
+
     add_favourite(name='Tchai-Ovna House of Tea',
         place_id="ChIJWWPdpzJEiEgRdd3UZcKheik",
         user = user1)
@@ -106,7 +106,7 @@ def populate():
     add_dislike(place_id ="ChIJ-7gDJtYRiEgRhcV1zoFOCXc",
         user = user1,
         name = 'Stravaigin')
-    
+
     add_blacklist(place_id ="ChIJ-7gDJtYRiEgRhcV1zoFOCXc",
         user = user1,
         name = 'Stravaigin')
@@ -138,11 +138,11 @@ def populate():
     add_dislike(name="Rabbie's Cafe",
         place_id="ChIJI5r8_o7Hh0gRc9Mu8QJaRkU",
         user = user1)
-    
+
     add_like(name="Peking House",
         place_id="ChIJrbtxVQpFiEgRvrJqYAodSHc",
         user = user5)
-    
+
     add_dislike(name="Peking House",
         place_id="ChIJrbtxVQpFiEgRvrJqYAodSHc",
         user = user4)
@@ -154,7 +154,7 @@ def populate():
     add_dislike(name="Peking House",
         place_id="ChIJrbtxVQpFiEgRvrJqYAodSHc",
         user = user3)
-        
+
     add_like(name="Ciao Roma",
         place_id="ChIJ-4Cj-47Hh0gRYiyFHXYXfnk",
         user = user2)

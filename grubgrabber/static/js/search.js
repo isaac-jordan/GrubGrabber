@@ -9,7 +9,7 @@ var searchResults = [];
 function initialize() {
     geocoder = new google.maps.Geocoder();
     var mapProp = {
-        zoom:16,
+        zoom:15,
         mapTypeId:google.maps.MapTypeId.ROADMAP
     };
     map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
