@@ -23,10 +23,9 @@ def index(request):
     print "Sorted: " + str(favourites)
 
     #Remove places with same place id
-    a = favourites
     favouritesResult = set()
     b = []
-    for item in a:
+    for item in favourites:
         if item.place_id not in favouritesResult:
             print item.place_id
             b.append(item)
@@ -191,8 +190,6 @@ def remove_blacklist_items(user, results):
         return returnResults
     else:
         return results
-
-
 
 def favourite_compare(a,b):
     if number_of_favourites(a[0]) >= number_of_favourites(b[0]):

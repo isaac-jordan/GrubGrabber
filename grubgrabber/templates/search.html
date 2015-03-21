@@ -28,7 +28,10 @@
           <div id="googleMap"></div>
         </div>
         <div class="small-8 columns">
-          Location: <span id="placeLocation"></span>
+            <p>Location: <span id="placeLocation"></span></p>
+            <p>Rating: <span id="placeRating"></span></p>
+            <p>Types: <span id="placeTypes"></span></p>
+            <p>Open: <span id="placeOpen"></span></p>
         </div>
       </div>
       <div class="row">
@@ -50,7 +53,6 @@
 {% endblock %}
 
 {% block javascript %}
-
 <script src="http://maps.googleapis.com/maps/api/js?key={{ mapsKey }}&libraries=places"></script>
 <script src="{% static "js/search.js" %}"></script>
 

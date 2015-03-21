@@ -9,7 +9,7 @@ var searchResults = [];
 function initialize() {
     geocoder = new google.maps.Geocoder();
     var mapProp = {
-        zoom:15,
+        zoom:16,
         mapTypeId:google.maps.MapTypeId.ROADMAP
     };
     map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
@@ -23,7 +23,8 @@ function codeAddress(address) {
             map.setCenter(locationObject);
             var marker = new google.maps.Marker({
                 map: map,
-                position: locationObject
+                position: locationObject,
+                icon: '/static/img/marker-home.png',
             });
             var request = {
                 location: locationObject,
@@ -69,6 +70,7 @@ function callback(results, status, pagination) {
 }
 
 function setResult(result) {
+    console.log(result);
     $("#placeName").html(result["name"]);
     $("#placeLocation").html(result["vicinity"]);
     $("#typeIcon").attr("src",result["icon"]);
@@ -78,6 +80,23 @@ function setResult(result) {
         $("#placePhoto").attr("src",result["photos"][0].getUrl({'maxHeight': 150}));
     } else {
         $("#placePhoto").attr("src","http://placehold.it/329x150&text=Place Image");
+    }
+    $("#placeRating").html(result["rating"] != undefined ? result["rating"] : "No Ratings");
+    $("#placeTypes").html("");
+    for (var i=0;i<result["types"].length; i++) {
+        $("#placeTypes").append(result["types"][i]);
+        if (i < result["types"].length -1) {
+            $("#placeTypes").append(", ");
+        }
+    }
+    if (result["opening_hours"] != undefined) {
+        if (result["opening_hours"]["open_now"] == true) {
+            $("#placeOpen").html("Open!");
+        } else {
+            $("#placeOpen").html("Closed!");
+        }
+    } else {
+        $("#placeOpen").html("Unknown.");
     }
     new google.maps.Marker({
         map: map,
@@ -90,9 +109,10 @@ function getNextResult() {
     if (result != undefined) {
         setResult(result);
     } else {
-        alert("Getting more!");
         if (paginationCache.hasNextPage) {
             paginationCache.nextPage();
+        } else {
+            alert("Sorry, we cannot get any more results. Please refresh to go back to the start, or try a different location.");
         }
     }
 }

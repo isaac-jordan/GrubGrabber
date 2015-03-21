@@ -31,7 +31,7 @@ function initialize(searchLatLng, PLACE_ID) {
 
 function callback(result, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
-        //console.log(result);
+        console.log(result);
         setResult(result);
         new google.maps.Marker({
             map: map,
@@ -61,15 +61,15 @@ function setResult(result) {
     $("#placeName").append(result["name"]);
     $("#placeLocation").append(result["formatted_address"]);
     $("#typeIcon").attr("src",result["icon"]);
-    $("#placeRating").append(result["rating"]);
-    $("#placeWebsite").append(result["website"]);
+    $("#placeRating").html(result["rating"] != undefined ? result["rating"] : "No Ratings");
+    $("#placeWebsite").append(result["website"] != undefined ? result["website"] : "No Website Listed");
     $("#placeWebsite").attr("href", result["website"]);
     $("#placeName").attr("data-place", result["place_id"]);
     if (result["reviews"] != undefined) {
         result["reviews"].forEach(function(review) {
-            var html = "<div class='review'>";
+            var html = "<div class='review'><strong>";
             html += review["author_name"];
-            html += ": " + review["rating"];
+            html += "</strong> rated <strong>" + review["rating"] + "</strong>.";
             html += "<br>";
             html += review["text"];
             html += "</div>";
@@ -82,9 +82,12 @@ function setResult(result) {
         prevArrow: "<a class='slick-prev button small'>Previous</a>",
         nextArrow: "<a class='slick-next button small'>Next</a>",
     });
-    result["types"].forEach( function(type) {
-        $("#placeTypes").append(type + ", ");
-    });
+    for (var i=0;i<result["types"].length; i++) {
+        $("#placeTypes").append(result["types"][i]);
+        if (i < result["types"].length -1) {
+            $("#placeTypes").append(", ");
+        }
+    }
     if (result["photos"] != undefined) {
         $("#placePhoto").attr("src",result["photos"][0].getUrl({'maxHeight': 150}));
     } else {

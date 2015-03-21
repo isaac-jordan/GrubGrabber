@@ -29,6 +29,7 @@
                     <p>Rating: <span id="placeRating"></span></p>
                     <p>Website: <a target="_blank" id="placeWebsite"></a></p>
                     <p>Types: <span id="placeTypes"></span></p>
+                    <p>Reviews: <a href="#placeReviews">Click here</a>
                 </div>
             </div>
             <div class="row">
@@ -55,8 +56,8 @@
 {% endblock %}
 
 {% block javascript %}
-<script src="{% static "js/slick.min.js" %}"></script>
 <script src="http://maps.googleapis.com/maps/api/js?key={{ mapsKey }}&libraries=places"></script>
+<script src="{% static "js/slick.min.js" %}"></script>
 <script src="{% static "js/place.js" %}"></script>
 
 <script>
