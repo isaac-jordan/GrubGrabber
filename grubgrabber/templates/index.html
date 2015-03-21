@@ -9,7 +9,7 @@
   </div>
   <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
   <br />
-  
+
   <div class="row">
 	<div class="small-10 columns">
 	<b>&nbsp;&nbsp; Can't decide what to each for lunch? </b><br />
@@ -22,7 +22,7 @@
         {% csrf_token %}
         <input id="mainSearch" class="mainSearch" type="text" name="search" placeholder="Enter your approximate location"/>
       </form>
-	  
+
       <br /><br /><br />
   </div>
 </div>
@@ -53,14 +53,14 @@
         {% if favourites %}
 
             <ul class="list-group">
-                {% for place in favourites %}
-					<li class ="list-group-item"><a href="/place/(55.864237, -4.251805999999988)/{{ place}}">{{ place }}</a></li>
+                {% for favourite in favourites %}
+					<li class ="list-group-item"><a href="/place/(55.864237, -4.251805999999988)/{{ favourite.place }}">{{ favourite.name }}</a></li>
 				{% endfor %}
             </ul>
         {% else %}
             <strong>No favourite eats</strong>
         {% endif %}
-       
+
       </div>
 
     </div>

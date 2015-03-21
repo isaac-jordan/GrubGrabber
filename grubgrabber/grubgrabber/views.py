@@ -10,30 +10,31 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, AnonymousUser
 from grubgrabber.forms import UserForm, UserProfileForm
+from django.db.models import Count
 
 GOOGLEKEY = open("key.txt").readline()
 
 def index(request):
     likes = Like.objects.all()[:8:-1]
     context_dict = {'likes' : likes}
-    
+
     favourites = Favourite.objects.all()
-    favourite_ids = []
-    for this in favourites:
-        favourite_ids.append(this.place_id)
-        
-    favourite_ids.sort(mostfav)
-    
-    #delete duplicates
-    mostfavs =list(set(favourite_ids))
-    
-    #mostfavs = ['ChIJWxM5_p9PiEgRAC7To6WEPFA']
-    top_favs = []
-    
-   # for i in range (8,0):
-        #this = Favourites.objects.select_related().filter(place_id = mostfavs[i])
-        #top_favs.append(this)[0]
-    context_dict['favourites'] = mostfavs
+    favourites = favourites.annotate(itemcount=Count('place_id')).order_by('-itemcount')
+    print "Sorted: " + str(favourites)
+
+    #Remove places with same place id
+    a = favourites
+    favouritesResult = set()
+    b = []
+    for item in a:
+        if item.place_id not in favouritesResult:
+            print item.place_id
+            b.append(item)
+            favouritesResult.add(item.place_id)
+    favourites = b
+    print favourites
+
+    context_dict['favourites'] = favourites
     return render(request, "index.html", context_dict)
 
 def search(request):
@@ -191,17 +192,10 @@ def remove_blacklist_items(user, results):
     else:
         return results
 
-def number_of_favourites(place_id):
-    favourites = Favourite.objects.all().filter(place_id=place_id)
-    return len(favourites)
+
 
 def favourite_compare(a,b):
     if number_of_favourites(a[0]) >= number_of_favourites(b[0]):
-        return 1
-    return -1
-
-def mostfav(a,b):
-    if number_of_favourites(a) >= number_of_favourites(b):
         return 1
     return -1
 
