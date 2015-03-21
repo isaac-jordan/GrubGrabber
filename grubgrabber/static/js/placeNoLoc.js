@@ -22,3 +22,13 @@ function initialize(PLACE_ID) {
     }
   });
 }
+
+function setBlacklisted() {
+    $("#blacklist").addClass("info");
+    $("#blacklistIcon").html("<i class='fi-x'></i> ")
+}
+
+function setFavourited() {
+    $("#favourite").addClass("info");
+    $("#favouriteIcon").html("<i class='fi-x'></i> ")
+}

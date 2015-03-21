@@ -1,15 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-import requests
-import urllib
-import json
 from grubgrabber.models import Like, UserProfile, Favourite, Blacklist
 from models import Like, UserProfile, Favourite
-from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User, AnonymousUser
-from grubgrabber.forms import UserForm, UserProfileForm
+from grubgrabber.forms import UserProfileForm
 from django.db.models import Count
 
 GOOGLEKEY = open("key.txt").readline()
@@ -20,24 +14,20 @@ def index(request):
 
     favourites = Favourite.objects.all()
     favourites = favourites.annotate(itemcount=Count('place_id')).order_by('-itemcount')
-    print "Sorted: " + str(favourites)
 
     #Remove places with same place id
     favouritesResult = set()
     b = []
     for item in favourites:
         if item.place_id not in favouritesResult:
-            print item.place_id
             b.append(item)
             favouritesResult.add(item.place_id)
     favourites = b
-    print favourites
 
     context_dict['favourites'] = favourites
     return render(request, "index.html", context_dict)
 
 def search(request):
-    context_dict = {}
     if request.method == "GET":
         return redirect("/")
     elif request.method == "POST":
@@ -53,12 +43,17 @@ def place(request, SEARCH_LOC, PLACE_ID):
     args['SEARCH_LOC'] = SEARCH_LOC
     args['PLACE_ID'] = PLACE_ID
     args["mapsKey"] = GOOGLEKEY
-
     return render(request, "place.html", args)
 
 def placeNoLoc(request, PLACE_ID):
     args = {}
     args['PLACE_ID'] = PLACE_ID
+    args['blacklisted'] = False
+    if request.user.is_authenticated():
+        if Blacklist.objects.filter(user=request.user, place_id=PLACE_ID).exists():
+            args['blacklisted'] = True
+        if Favourite.objects.filter(user=request.user, place_id=PLACE_ID).exists():
+            args['favourited'] = True
     return render(request, "placeNoLoc.html", args)
 
 @login_required
@@ -88,7 +83,6 @@ def register_profile(request):
 
     context_dict['registered_profile'] = registered_profile
     context_dict['profile_form'] = profile_form
-
     return render(request, 'registration/profile_registration.html', context_dict)
 
 @login_required
@@ -111,7 +105,6 @@ def profile(request):
 
 @login_required
 def addFavourite(request):
-    print request.POST["place"]
     if Favourite.objects.filter(user=request.user, place_id=request.POST["place"]).exists():
         Favourite.objects.filter(user=request.user, place_id=request.POST["place"]).delete()
         return HttpResponse("Removed")
@@ -121,7 +114,6 @@ def addFavourite(request):
 
 @login_required
 def addBlacklist(request):
-    print request.POST["place"]
     if Blacklist.objects.filter(user=request.user, place_id=request.POST["place"]).exists():
         Blacklist.objects.filter(user=request.user, place_id=request.POST["place"]).delete()
         return HttpResponse("Removed")
@@ -134,25 +126,20 @@ def addLike(request):
         Like.objects.create(user=request.user, place_id=request.POST["place"], name=request.POST["name"])
     else:
         Like.objects.create(place_id=request.POST["place"], name=request.POST["name"])
-    return HttpResponse("Like added");
+    return HttpResponse("Like added")
 
 def sort_search_results(request):
     initResults = request.POST.getlist('data')
     user = request.user
-    print "Before blacklist " + str(initResults)
     #filter out blacklisted items
     results = remove_blacklist_items(user, initResults)
-    print "After blacklist " + str(results)
     #create sortable list of lists [,[place_id, weighting value],[etc.]]
     result_list = []
     for place_id in results:
         result_list.append([place_id,0])
-    print "After adding" + str(result_list)
     #apply distance weighting (result_list is sorted by distance at this point)
     for i in range(0,len(result_list)):
         result_list[i][1] += (20 - i)
-
-    print "After distance weighting" + str(result_list)
 
     favourites = Favourite.objects.all() #One DB call
     if request.user.is_authenticated():
@@ -166,19 +153,14 @@ def sort_search_results(request):
         liked = likes.filter(place_id=result[0])
         result[1] += len(liked) #Add number of likes
 
-    print "After weighting " + str(result_list)
     result_list.sort(weighting_compare)
 
-    print "After sorting" + str(result_list)
     resultArray = []
     for result in result_list:
         for i in range(len(initResults)):
             if result[0] == initResults[i]:
-                print str(result[0]) + " " + str(initResults[i])
                 resultArray.append(i)
                 break
-    print initResults
-    print resultArray
 
     #Return a list of indices, the index refers to it's position in the original list.
     #[5,4,3,2,1] means "take 5th element of first list, then 4th, then 3rd, etc"
@@ -189,16 +171,11 @@ def remove_blacklist_items(user, results):
     if user.is_authenticated():
         blacklist = Blacklist.objects.select_related().filter(user=user).values_list('place_id', flat=True)
         for place_id in results:
-                if not (place_id in blacklist):
-                    returnResults.append(place_id)
+            if not (place_id in blacklist):
+                returnResults.append(place_id)
         return returnResults
     else:
         return results
-
-def favourite_compare(a,b):
-    if number_of_favourites(a[0]) >= number_of_favourites(b[0]):
-        return 1
-    return -1
 
 def number_of_likes(place_id):
     likes = Like.objects.all().filter(place_id=place_id)

@@ -9,5 +9,10 @@
 
 <script>
 initialize("{{ PLACE_ID | safe }}");
+{% if blacklisted %}
+setBlacklisted();
+{% elif favourited %}
+setFavourited();
+{% endif %}
 </script>
 {% endblock %}
