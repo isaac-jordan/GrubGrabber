@@ -24,6 +24,19 @@ def index(request):
             b.append(item)
             favouritesResult.add(item.place_id)
     favourites = b
+    
+    #Add locations from user
+    user = request.user
+    context_dict['user'] = user
+    try:
+        user_profile = UserProfile.objects.get(user=user)
+        context_dict['user_profile'] = user_profile
+        context_dict["locations"] = []
+        locations = json.loads(user_profile.locations_json)
+        for location in locations:
+            context_dict["locations"].append({"name":location,"geometry":locations[location]})
+    except:
+        print "ERROR"
 
     context_dict['favourites'] = favourites
     return render(request, "index.html", context_dict)
@@ -101,13 +114,13 @@ def profile(request):
         context_dict['blacklist'] = blacklist
         user_profile = UserProfile.objects.get(user=user)
         context_dict['user_profile'] = user_profile
+        context_dict["locations"] = []
+        locations = json.loads(user_profile.locations_json)
+        for location in locations:
+            context_dict["locations"].append({"name":location,"geometry":locations[location]})
+        print context_dict["locations"]
     except:
         print "ERROR"
-    context_dict["locations"] = []
-    locations = json.loads(user_profile.locations_json)
-    for location in locations:
-        context_dict["locations"].append({"name":location,"geometry":locations[location]})
-    print context_dict["locations"]
     return render(request, 'profile.html', context_dict)
 
 @login_required

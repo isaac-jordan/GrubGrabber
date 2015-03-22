@@ -22,10 +22,17 @@
         {% csrf_token %}
         <input id="mainSearch" class="mainSearch" type="text" name="search" placeholder="Enter your approximate location"/>
       </form>
+      {% if user.is_authenticated %}
+        {% for location in locations %}
+        {{location.name}}
+        {% endfor %}
+      {% else %}
+        <b><a href="{% url 'auth_login' %}">Login</a> to view your personal locations</b>
+      {% endif %}
 
       <br /><br /><br />
+    </div>
   </div>
-</div>
 
 <br>
 <div class="row">

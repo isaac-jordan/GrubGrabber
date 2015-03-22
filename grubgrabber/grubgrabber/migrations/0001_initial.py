@@ -66,6 +66,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('about', models.CharField(max_length=2000, blank=True)),
                 ('picture', models.ImageField(upload_to=b'profile_images', blank=True)),
+                ('locations_json', models.CharField(max_length=2000)),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
             ],
             options={

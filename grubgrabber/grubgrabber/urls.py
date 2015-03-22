@@ -11,7 +11,7 @@ class MyRegistrationView(RegistrationView):
 urlpatterns = patterns('',
     url(r'^$', 'grubgrabber.views.index',name='index'),
     url(r'^search/$', 'grubgrabber.views.search',name='search'),
-    url(r'^search/getKey$', 'grubgrabber.views.getKey',name='getKey'),
+    url(r'^search/getKey/$', 'grubgrabber.views.getKey',name='getKey'),
     ## place page accessible through /place/USER_LOCATION/PLACE_ID
     url(r'^place/(?P<SEARCH_LOC>.*)/(?P<PLACE_ID>.*)/$', 'grubgrabber.views.place',name='place'),
     url(r'^place/(?P<PLACE_ID>.*)/$', 'grubgrabber.views.placeNoLoc', name='placeNoLoc'),
