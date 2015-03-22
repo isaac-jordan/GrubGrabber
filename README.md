@@ -20,6 +20,8 @@ See the Design folder for design documentation including wireframes, database st
 2. Run the Django development server with `python manage.py runserver` or `./manage.py runserver`
 3. Access site at `127.0.0.1:8000` by default.
 
+If the population script has been run, then a test user will exist with username `test` and password `test`.
+
 ## Contributing
 
 1. Fork it!
