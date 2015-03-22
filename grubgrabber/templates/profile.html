@@ -56,7 +56,21 @@
       <form action="{% url 'register_profile' %}">
         <input class="button small" type="submit" value="Edit Profile">
       </form>
+      <h2>Saved Locations</h2>
+      {% for location in locations %}
+      {{ location.name }}: {{ location.geometry }}
+      <br><br>
+      {% empty %}
+      <strong>No Places Added!</strong>
+      {% endfor %}
+      <input id="location" type="text" placeholder="Start typing an address"/>
+      <a id="addLocation" class="button">Add a location</a>
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block javascript %}
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+<script src="{% static "js/profile.js" %}"></script>
 {% endblock %}

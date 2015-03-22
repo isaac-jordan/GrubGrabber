@@ -5,6 +5,7 @@ from models import Like, UserProfile, Favourite
 from django.contrib.auth.decorators import login_required
 from grubgrabber.forms import UserProfileForm
 from django.db.models import Count
+import json
 
 GOOGLEKEY = open("key.txt").readline()
 
@@ -74,6 +75,7 @@ def register_profile(request):
             profile.user = request.user
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
+            profile.locations_json = json.dumps({})
             profile.save()
             registered_profile = True
         else:
@@ -100,8 +102,22 @@ def profile(request):
         user_profile = UserProfile.objects.get(user=user)
         context_dict['user_profile'] = user_profile
     except:
-        pass
+        print "ERROR"
+    context_dict["locations"] = []
+    locations = json.loads(user_profile.locations_json)
+    for location in locations:
+        context_dict["locations"].append({"name":location,"geometry":locations[location]})
+    print context_dict["locations"]
     return render(request, 'profile.html', context_dict)
+
+@login_required
+def addLocation(request):
+    userprofile = UserProfile.objects.get(user=request.user)
+    locations = json.loads(userprofile.locations_json)
+    locations[request.POST["name"]] = request.POST["geometry"]
+    userprofile.locations_json = json.dumps(locations)
+    userprofile.save()
+    return HttpResponse("Added or Updated")
 
 @login_required
 def addFavourite(request):

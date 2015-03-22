@@ -37,6 +37,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
     about = models.CharField(max_length = 2000, blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
+    locations_json = models.CharField(max_length=2000)
 
     def __unicode__(self):
         return self.user.username

@@ -1,9 +1,9 @@
 import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'grubgrabber.settings')
 import django
 from grubgrabber.models import User, Favourite, Like, Dislike, Blacklist, UserProfile
 from django.contrib.auth.models import User
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'grubgrabber.settings')
 django.setup()
 
 def populate():
