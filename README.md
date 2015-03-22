@@ -1,10 +1,11 @@
 # Grub Grabber
 University of Glasgow - WAD2 Group Project
 
-This application will provide users with personalised recommendations for places to
-get food.
+Grub Grabber is a web application designed to give users (anonymous or signed in) easy-to-access lunch destination suggestions. The suggestions include places like cafes, restaurants, bars that serve food, as well as cheaper daily options such as supermarkets, and convenience stores.
 
-See Design folder for the design documentation.
+Grub Grabber makes use of the [Google Maps Javascript API v3](https://developers.google.com/maps/documentation/javascript/) to provide details about places.
+
+See the Design folder for design documentation including wireframes, database structure, and user personas.
 
 ## Installation
 
@@ -34,10 +35,10 @@ Version 1.0: 27th March 2015
 ## Credits
 
 Main Development Team:
-- Isaac Jordan
-- Ben Jackson
-- Callum Nixon
-- Jack Croal
+- Isaac Jordan - https://github.com/Sheepzez
+- Ben Jackson - https://github.com/ExogenesisBen
+- Callum Nixon -https://github.com/2072704N
+- Jack Croal - https://github.com/2062685c
 
 ## License
 
