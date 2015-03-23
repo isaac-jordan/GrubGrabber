@@ -12,7 +12,7 @@
       <h3>&nbsp;&nbsp; Can't decide what to each for lunch? </h3><br />
     </div>
     <div class="small-1 columns">
-      &nbsp;&nbsp;&nbsp;&nbsp; <i class='fi-magnifying-glass large'></i>
+      &nbsp;&nbsp; <i class='fi-magnifying-glass large'></i>
     </div>
     <div class="small-11 columns">
       <form action="search/" method="post">
@@ -27,13 +27,12 @@
     <div class="small-12 columns">
       <div class="row">
         <div class="small-4 columns">
-
           <h4>Recent Eats</h4><hr>
           {% if likes %}
 
           <ul class="list-group">
             {% for Like in likes %}
-            <li class ="list-group-item"><a href="/place/{{ Like.place_id }}">{{ Like.name }}</a></li>
+            <li class ="list-group-item"><a href="/place/{{ Like.place_id }}">{{ Like.name | safe }}</a></li>
             {% endfor %}
           </ul>
           {% else %}
@@ -49,7 +48,7 @@
 
           <ul class="list-group">
             {% for favourite in favourites %}
-            <li class ="list-group-item"><a href="/place/{{ favourite.place_id }}">{{ favourite.name }}</a></li>
+            <li class ="list-group-item"><a href="/place/{{ favourite.place_id }}">{{ favourite.name | safe }}</a></li>
             {% endfor %}
           </ul>
           {% else %}
@@ -64,7 +63,7 @@
             {% for location in locations %}
               <form action="search/" method="post">
                 {% csrf_token %}
-                <a href="search/{{location.geometry}}">{{location.name}}</a>
+                <a class="locationItem">{{location.name}}</a>
               </form>
             {% endfor %}
           {% else %}
@@ -79,6 +78,6 @@
 {% endblock %}
 
 {% block javascript %}
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false&amp;libraries=places"></script>
 <script src="{% static "js/index.js" %}"></script>
 {% endblock %}

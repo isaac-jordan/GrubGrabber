@@ -11,7 +11,7 @@ GOOGLEKEY = open("key.txt").readline()
 
 def index(request):
     likes = Like.objects.all()[:10:-1]
-    
+
     #Remove places with same place id for Recent Eats
     likesResult = set()
     l = []
@@ -21,18 +21,20 @@ def index(request):
             likesResult.add(item.place_id)
     likes = l[:5]
     context_dict = {'likes' : likes}
-    
-    favourites = Favourite.objects.all()
-    favourites = favourites.annotate(itemcount=Count('place_id')).order_by('-itemcount')
+
+    #favourites =
+    favourites = Favourite.objects.values('place_id', 'name').annotate(count=Count('place_id')).order_by('-count')
+    for favourite in favourites:
+        print favourite
     #Remove places with same place id for Top Eats
     favouritesResult = set()
     b = []
     for item in favourites:
-        if item.place_id not in favouritesResult:
+        if item["place_id"] not in favouritesResult:
             b.append(item)
-            favouritesResult.add(item.place_id)
+            favouritesResult.add(item["place_id"])
     favourites = b[:5]
-    
+
     #Add locations from user
     user = request.user
     context_dict['user'] = user

@@ -70,7 +70,7 @@ function callback(results, status, pagination) {
 }
 
 function setResult(result) {
-    console.log(result);
+    //console.log(result);
     $("#placeName").html(result["name"]);
     $("#placeLocation").html(result["vicinity"]);
     $("#typeIcon").attr("src",result["icon"]);
