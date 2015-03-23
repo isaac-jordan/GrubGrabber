@@ -33,7 +33,7 @@
 
           <ul class="list-group">
             {% for Like in likes %}
-            <li class ="list-group-item"><a href="/place/{{ Like.place_id }}">{{ Like.name }}</a></li>
+            <li class ="list-group-item"><a href="/place/{{ Like.place_id }}">{{ Like.name | safe }}</a></li>
             {% endfor %}
           </ul>
           {% else %}
@@ -49,7 +49,7 @@
 
           <ul class="list-group">
             {% for favourite in favourites %}
-            <li class ="list-group-item"><a href="/place/{{ favourite.place_id }}">{{ favourite.name }}</a></li>
+            <li class ="list-group-item"><a href="/place/{{ favourite.place_id }}">{{ favourite.name | safe }}</a></li>
             {% endfor %}
           </ul>
           {% else %}
