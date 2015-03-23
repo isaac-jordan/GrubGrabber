@@ -10,20 +10,28 @@ import json
 GOOGLEKEY = open("key.txt").readline()
 
 def index(request):
-    likes = Like.objects.all()[:8:-1]
+    likes = Like.objects.all()[:10:-1]
+    
+    #Remove places with same place id for Recent Eats
+    likesResult = set()
+    l = []
+    for item in likes:
+        if item.place_id not in likesResult:
+            l.append(item)
+            likesResult.add(item.place_id)
+    likes = l[:5]
     context_dict = {'likes' : likes}
-
+    
     favourites = Favourite.objects.all()
     favourites = favourites.annotate(itemcount=Count('place_id')).order_by('-itemcount')
-
-    #Remove places with same place id
+    #Remove places with same place id for Top Eats
     favouritesResult = set()
     b = []
     for item in favourites:
         if item.place_id not in favouritesResult:
             b.append(item)
             favouritesResult.add(item.place_id)
-    favourites = b
+    favourites = b[:5]
     
     #Add locations from user
     user = request.user
