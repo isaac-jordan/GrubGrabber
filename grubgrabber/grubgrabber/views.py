@@ -24,8 +24,6 @@ def index(request):
 
     #favourites =
     favourites = Favourite.objects.values('place_id', 'name').annotate(count=Count('place_id')).order_by('-count')
-    for favourite in favourites:
-        print favourite
     #Remove places with same place id for Top Eats
     favouritesResult = set()
     b = []
