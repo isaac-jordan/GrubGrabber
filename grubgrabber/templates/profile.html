@@ -15,6 +15,7 @@
       {% endif %}
 
       <div class="row">
+        <div class="small-6 columns">
         <br />
         <strong> Email Address: </strong>
         {{ user.email }}
@@ -26,6 +27,7 @@
           N/A
         {% endif %}
       </div>
+    </div>
 
       <div class="row">
         <div class="large-1 columns">
@@ -51,11 +53,10 @@
         <div class="tabs-content">
           <section aria-hidden="false" class="content active" id="panel2-1">
             {% if favourites %}
-            <ul class="list-group">
               {% for favourite in favourites %}
-                <li class ="list-group-item"><a href="/place/{{ favourite.place_id }}">{{ favourite.name | safe }}</a></li>
+                <p><a href="/place/{{ favourite.place_id }}">{{ favourite.name | safe }}</a></p>
               {% endfor %}
-            </ul>
+
             {% else %}
               <strong>No favourites</strong>
             {% endif %}
@@ -63,24 +64,20 @@
 
           <section aria-hidden="true" class="content" id="panel2-2">
             {% if blacklist %}
-            <ul class="list-group">
               {% for blacklist in blacklist %}
-                <li class ="list-group-item"><a href="/place/{{ blacklist.place_id }}">{{ blacklist.name | safe }}</a></li>
+                <p><a href="/place/{{ blacklist.place_id }}">{{ blacklist.name | safe }}</a></p>
               {% endfor %}
-            </ul>
             {% else %}
               <strong>No blacklisted</strong>
             {% endif %}
           </section>
 
           <section aria-hidden="true" class="content" id="panel2-3">
-            <ul>
-              {% for location in locations %}
-                  <li>{{ location.name | safe }}</li>
-              {% empty %}
-                <li><strong>No Places Added!</strong></li>
-              {% endfor %}
-            </ul>
+            {% for location in locations %}
+                <p>{{ location.name | safe }}</p>
+            {% empty %}
+              <strong>No Places Added!</strong>
+            {% endfor %}
             <br>
             <input id="location" type="text" placeholder="Start typing an address"/>
             <a id="addLocation" class="button">Add a location</a>
