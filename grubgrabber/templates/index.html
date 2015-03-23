@@ -67,21 +67,6 @@
               <form action="search/" method="post">
                 {% csrf_token %}
                 <a href="search/{{location.geometry}}">{{location.name}}</a>
-                <!--
-                <script>
-                $.ajax({
-                    type:"POST",
-                    url:"/search/",
-                    data:{"name":name, "geometry":location.geometry},
-                    success: function(data) {
-                        alert("Address Added!")
-                    },
-                    error: function(result) {
-                        console.log(result["responseText"]);
-                    },
-                });
-                </script>
-              -->
               </form>
             {% endfor %}
           {% else %}

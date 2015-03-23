@@ -13,7 +13,7 @@
             {% if user_profile.picture %}
             <img class="profile" src="{{ user_profile.picture.url }}" HEIGHT="200" WIDTH="250"/>
             {% endif %}
-            
+
             <div class="row">
                 <br />
                 <b> Email Address: </b>
@@ -25,11 +25,11 @@
                 {% else %}
                     N/A
                 {% endif %}
-                
+
             </div>
-            
+
             <br /><br />
-            
+
             <div class="large-12 columns">
             <ul class="tabs" data-tab role="tablist">
             <li class="tab-title active" role="presentational" ><a href="#panel2-1" role="tab" tabindex="0" aria-selected="true" controls="panel2-1">Favourites</a></li>
@@ -49,7 +49,7 @@
                         <strong>No favourites</strong>
                     {% endif %}
                 </section>
-                
+
                 <section role="tabpanel" aria-hidden="true" class="content" id="panel2-2">
                     {% if blacklist %}
                         <ul class="list-group">
@@ -62,10 +62,10 @@
                         <strong>No blacklisted</strong>
                     {% endif %}
                 </section>
-                
+
                 <section role="tabpanel" aria-hidden="true" class="content" id="panel2-3">
                     {% for location in locations %}
-                        {{ location.name }}: {{ location.geometry }}
+                        {{ location.name }}
                         <br><br>
                         {% empty %}
                         <strong>No Places Added!</strong>
@@ -74,7 +74,7 @@
                     <a id="addLocation" class="button">Add a location</a>
                 </section>
             </div></div>
-            
+
             <div class="row">
                 <div class="large-3 columns">
                     <form action="{% url 'register_profile' %}">
@@ -87,7 +87,7 @@
                     </form>
                 </div>
             </div>
-        
+
         </div>
     </div>
 </div>
