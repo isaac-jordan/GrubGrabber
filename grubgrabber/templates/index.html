@@ -11,8 +11,8 @@
 
   <div class="row">
     <div class="small-12 columns">
-      <h2>&nbsp;&nbsp; Can't decide what to each for lunch? </h2><br />
-    </div><br>
+      <h3>&nbsp;&nbsp; Can't decide what to each for lunch? </h3><br />
+    </div>
     <div class="small-1 columns">
       &nbsp;&nbsp;&nbsp;&nbsp; <i class='fi-magnifying-glass large'></i>
     </div>
@@ -66,8 +66,22 @@
             {% for location in locations %}
               <form action="search/" method="post">
                 {% csrf_token %}
-                <input type="hidden" name="field1" value="foo" />
                 <a href="search/{{location.geometry}}">{{location.name}}</a>
+                <!--
+                <script>
+                $.ajax({
+                    type:"POST",
+                    url:"/search/",
+                    data:{"name":name, "geometry":location.geometry},
+                    success: function(data) {
+                        alert("Address Added!")
+                    },
+                    error: function(result) {
+                        console.log(result["responseText"]);
+                    },
+                });
+                </script>
+              -->
               </form>
             {% endfor %}
           {% else %}
