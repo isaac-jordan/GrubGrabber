@@ -21,73 +21,74 @@
                 <br />
                 <b> About: </b>
                 {% if user_profile %}
-                    {{ user_profile.about }}
+                {{ user_profile.about }}
                 {% else %}
-                    N/A
+                N/A
                 {% endif %}
 
             </div>
 
-            <br /><br />
-
-            <div class="large-12 columns">
-            <ul class="tabs" data-tab role="tablist">
-            <li class="tab-title active" role="presentational" ><a href="#panel2-1" role="tab" tabindex="0" aria-selected="true" controls="panel2-1">Favourites</a></li>
-            <li class="tab-title" role="presentational" ><a href="#panel2-2" role="tab" tabindex="0"aria-selected="false" controls="panel2-2">Black-Listed</a></li>
-            <li class="tab-title" role="presentational"><a href="#panel2-3" role="tab" tabindex="0" aria-selected="false" controls="panel2-3">Your Locations</a></li>
-            </ul>
-            <div class="tabs-content">
-                <section role="tabpanel" aria-hidden="false" class="content active" id="panel2-1">
-                    {% if favourites %}
-                        <ul class="list-group">
-                        <strong> Favourites: </strong>
-                        {% for favourite in favourites %}
-                            <li class ="list-group-item"><a href="/place/{{ favourite.place_id }}">{{ favourite.name }}</a></li>
-                        {% endfor %}
-                        </ul>
-                    {% else %}
-                        <strong>No favourites</strong>
-                    {% endif %}
-                </section>
-
-                <section role="tabpanel" aria-hidden="true" class="content" id="panel2-2">
-                    {% if blacklist %}
-                        <ul class="list-group">
-                        <strong> Blacklist : </strong>
-                        {% for blacklist in blacklist %}
-                            <li class ="list-group-item"><a href="/place/{{ blacklist.place_id }}">{{ blacklist.name }}</a></li>
-                        {% endfor %}
-                        </ul>
-                    {% else %}
-                        <strong>No blacklisted</strong>
-                    {% endif %}
-                </section>
-
-                <section role="tabpanel" aria-hidden="true" class="content" id="panel2-3">
-                    {% for location in locations %}
-                        {{ location.name }}
-                        <br><br>
-                        {% empty %}
-                        <strong>No Places Added!</strong>
-                    {% endfor %}
-                    <input id="location" type="text" placeholder="Start typing an address"/>
-                    <a id="addLocation" class="button">Add a location</a>
-                </section>
-            </div></div>
-
             <div class="row">
-                <div class="large-3 columns">
+                <div class="large-1 columns">
                     <form action="{% url 'register_profile' %}">
                         <input class="button" type="submit" value="Edit Profile">
                     </form>
                 </div>
-                <div class="large-9 columns">
+                <div class="large-10 columns">
                     <form action="{% url 'auth_password_change' %}">
                         <input class="button" type="submit" value="Change Password">
                     </form>
                 </div>
             </div>
 
+
+            <br /><br />
+
+            <div class="large-12 columns">
+                <ul class="tabs" data-tab role="tablist">
+                    <li class="tab-title active" role="presentational" ><a href="#panel2-1" role="tab" tabindex="0" aria-selected="true" controls="panel2-1">Favourites</a></li>
+                    <li class="tab-title" role="presentational" ><a href="#panel2-2" role="tab" tabindex="0"aria-selected="false" controls="panel2-2">Black-Listed</a></li>
+                    <li class="tab-title" role="presentational"><a href="#panel2-3" role="tab" tabindex="0" aria-selected="false" controls="panel2-3">Your Locations</a></li>
+                </ul>
+                <div class="tabs-content">
+                    <section role="tabpanel" aria-hidden="false" class="content active" id="panel2-1">
+                        {% if favourites %}
+                        <ul class="list-group">
+                            <strong> Favourites: </strong>
+                            {% for favourite in favourites %}
+                            <li class ="list-group-item"><a href="/place/{{ favourite.place_id }}">{{ favourite.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        <strong>No favourites</strong>
+                        {% endif %}
+                    </section>
+
+                    <section role="tabpanel" aria-hidden="true" class="content" id="panel2-2">
+                        {% if blacklist %}
+                        <ul class="list-group">
+                            <strong> Blacklist : </strong>
+                            {% for blacklist in blacklist %}
+                            <li class ="list-group-item"><a href="/place/{{ blacklist.place_id }}">{{ blacklist.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        <strong>No blacklisted</strong>
+                        {% endif %}
+                    </section>
+
+                    <section role="tabpanel" aria-hidden="true" class="content" id="panel2-3">
+                        {% for location in locations %}
+                        {{ location.name }}
+                        <br><br>
+                        {% empty %}
+                        <strong>No Places Added!</strong>
+                        {% endfor %}
+                        <input id="location" type="text" placeholder="Start typing an address"/>
+                        <a id="addLocation" class="button">Add a location</a>
+                    </section>
+                </div>
+            </div>
         </div>
     </div>
 </div>
