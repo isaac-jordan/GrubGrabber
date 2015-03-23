@@ -27,6 +27,19 @@
                 {% endif %}
                 
             </div>
+			
+			<div class="row">
+                <div class="large-1 columns">
+                    <form action="{% url 'register_profile' %}">
+                        <input class="button" type="submit" value="Edit Profile">
+                    </form>
+                </div>
+                <div class="large-10 columns">
+                    <form action="{% url 'auth_password_change' %}">
+                        <input class="button" type="submit" value="Change Password">
+                    </form>
+                </div>
+            </div>
             
             <br /><br />
             
@@ -74,19 +87,6 @@
                     <a id="addLocation" class="button">Add a location</a>
                 </section>
             </div></div>
-            
-            <div class="row">
-                <div class="large-3 columns">
-                    <form action="{% url 'register_profile' %}">
-                        <input class="button" type="submit" value="Edit Profile">
-                    </form>
-                </div>
-                <div class="large-9 columns">
-                    <form action="{% url 'auth_password_change' %}">
-                        <input class="button" type="submit" value="Change Password">
-                    </form>
-                </div>
-            </div>
         
         </div>
     </div>
