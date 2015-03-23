@@ -12,7 +12,7 @@
       <h3>&nbsp;&nbsp; Can't decide what to each for lunch? </h3><br />
     </div>
     <div class="small-1 columns">
-      &nbsp;&nbsp;&nbsp;&nbsp; <i class='fi-magnifying-glass large'></i>
+      &nbsp;&nbsp; <i class='fi-magnifying-glass large'></i>
     </div>
     <div class="small-11 columns">
       <form action="search/" method="post">
@@ -78,6 +78,6 @@
 {% endblock %}
 
 {% block javascript %}
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false&amp;libraries=places"></script>
 <script src="{% static "js/index.js" %}"></script>
 {% endblock %}
