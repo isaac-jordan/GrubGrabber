@@ -5,74 +5,76 @@
 {% block content %}
 <div class="row">
   <div class="small-12 columns text-center">
-  <img src="{% static 'img/grubgrabber.jpg' %}" width="1200" alt="Grub Grabber" />
+    <img src="{% static 'img/grubgrabber.jpg' %}" width="1200" alt="Grub Grabber" />
   </div>
   <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-  <br />
 
   <div class="row">
-	<div class="small-10 columns">
-	<b>&nbsp;&nbsp; Can't decide what to each for lunch? </b><br />
-	</div><br>
-      <div class="small-1 columns">
-         &nbsp;&nbsp;&nbsp;&nbsp; <i class='fi-magnifying-glass large'></i>
-      </div>
-      <div class="small-11 columns">
+    <div class="small-12 columns">
+      <h2>&nbsp;&nbsp; Can't decide what to each for lunch? </h2><br />
+    </div><br>
+    <div class="small-1 columns">
+      &nbsp;&nbsp;&nbsp;&nbsp; <i class='fi-magnifying-glass large'></i>
+    </div>
+    <div class="small-11 columns">
       <form action="search/" method="post">
         {% csrf_token %}
         <input id="mainSearch" class="mainSearch" type="text" name="search" placeholder="Enter your approximate location"/>
       </form>
-      {% if user.is_authenticated %}
-        {% for location in locations %}
-        {{location.name}}
-        {% endfor %}
-      {% else %}
-        <b><a href="{% url 'auth_login' %}">Login</a> to view your personal locations</b>
-      {% endif %}
-
-      <br /><br /><br />
     </div>
   </div>
 
-<br>
-<div class="row">
-  <div class="small-12 columns">
-    <div class="row">
-      <div class="small-6 columns">
+  <br>
+  <div class="row">
+    <div class="small-12 columns">
+      <div class="row">
+        <div class="small-4 columns">
 
-        <h4>Recent Eats</h4><hr>
-        {% if likes %}
+          <h4>Recent Eats</h4><hr>
+          {% if likes %}
 
-            <ul class="list-group">
-                {% for Like in likes %}
-					<li class ="list-group-item"><a href="/place/{{ Like.place_id }}">{{ Like.name }}</a></li>
-				{% endfor %}
-            </ul>
-        {% else %}
-            <strong>No recent eats</strong>
-        {% endif %}
+          <ul class="list-group">
+            {% for Like in likes %}
+            <li class ="list-group-item"><a href="/place/{{ Like.place_id }}">{{ Like.name }}</a></li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <strong>No recent eats</strong>
+          {% endif %}
+        </div>
+
+        <!-- Log in -->
+
+        <div class="small-4 columns">
+          <h4>Top Eats</h4><hr>
+          {% if favourites %}
+
+          <ul class="list-group">
+            {% for favourite in favourites %}
+            <li class ="list-group-item"><a href="/place/{{ favourite.place_id }}">{{ favourite.name }}</a></li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <strong>No favourite eats</strong>
+          {% endif %}
+
+        </div>
+
+        <div class="small-4 columns">
+          <h4>Locations</h4><hr>
+          {% if user.is_authenticated %}
+            {% for location in locations %}
+              <a href="search/{{location.geometry}}">{{location.name}}</a>
+            {% endfor %}
+          {% else %}
+            <b><a href="{% url 'auth_login' %}">Login</a> to view your personal locations</b>
+          {% endif %}
+        </div>
       </div>
-
-      <!-- Log in -->
-
-      <div class="small-6 columns">
-       <h4>Top Eats</h4><hr>
-        {% if favourites %}
-
-            <ul class="list-group">
-                {% for favourite in favourites %}
-					<li class ="list-group-item"><a href="/place/{{ favourite.place_id }}">{{ favourite.name }}</a></li>
-				{% endfor %}
-            </ul>
-        {% else %}
-            <strong>No favourite eats</strong>
-        {% endif %}
-
-      </div>
-
     </div>
   </div>
 </div>
+
 {% endblock %}
 
 {% block javascript %}
