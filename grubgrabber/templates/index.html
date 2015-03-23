@@ -26,41 +26,38 @@
   <div class="row">
     <div class="small-12 columns">
       <div class="row">
-        <div class="small-12 medium-6 large-4 columns">
+        <div class="small-12 medium-6 large-3 columns">
           <h4>Recent Eats</h4><hr>
           {% if likes %}
 
-          <ul class="list-group">
             {% for Like in likes %}
-              <li class ="list-group-item"><a href="/place/{{ Like.place_id }}">{{ Like.name | safe }}</a></li>
+              <p><a href="/place/{{ Like.place_id }}">{{ Like.name | safe }}</a></p>
             {% endfor %}
-          </ul>
+
           {% else %}
             <strong>No recent eats</strong>
           {% endif %}
         </div>
 
-        <div class="small-12 medium-6 large-4 columns">
+        <div class="small-12 medium-6 large-3 columns">
           <h4>Top Eats</h4><hr>
           {% if favourites %}
 
-          <ul class="list-group">
             {% for favourite in favourites %}
-              <li class ="list-group-item"><a href="/place/{{ favourite.place_id }}">{{ favourite.name | safe }}</a></li>
+              <p><a href="/place/{{ favourite.place_id }}">{{ favourite.name | safe }}</a></p>
             {% endfor %}
-          </ul>
           {% else %}
             <strong>No favourite eats</strong>
           {% endif %}
         </div>
 
-        <div class="small-12 medium-6 large-4 columns">
+        <div class="small-12 medium-6 large-6 columns">
           <h4>Your Saved Locations</h4><hr>
           {% if user.is_authenticated %}
             {% for location in locations %}
               <form action="search/" method="post">
                 {% csrf_token %}
-                <a class="locationItem">{{location.name}}</a>
+                <p><a class="locationItem">{{location.name}}</a></p>
               </form>
             {% empty %}
               No Saved Locations! Go to profile to add some!
