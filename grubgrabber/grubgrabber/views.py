@@ -116,22 +116,25 @@ def profile(request):
     user = request.user
     context_dict['user'] = user
     try:
-        favourites = Favourite.objects.select_related().filter(user=user)
-        context_dict['favourites'] = favourites
-        likes = Like.objects.select_related().filter(user=user)
-        context_dict['likes'] = likes
-        blacklist = Blacklist.objects.select_related().filter(user=user)
-        context_dict['blacklist'] = blacklist
-        user_profile = UserProfile.objects.get(user=user)
-        context_dict['user_profile'] = user_profile
-        context_dict["locations"] = []
-        locations = json.loads(user_profile.locations_json)
-        for location in locations:
-            context_dict["locations"].append({"name":location,"geometry":locations[location]})
-        print context_dict["locations"]
+	favourites = Favourite.objects.select_related().filter(user=user)
+	context_dict['favourites'] = favourites
+	likes = Like.objects.select_related().filter(user=user)
+	context_dict['likes'] = likes
+	blacklist = Blacklist.objects.select_related().filter(user=user)
+	context_dict['blacklist'] = blacklist
+	context_dict["locations"] = []
+	locations = json.loads(user_profile.locations_json)
+	user_profile = UserProfile.objects.get(user=user)
+	context_dict['user_profile'] = user_profile
+	for location in locations:
+	    context_dict["locations"].append({"name":location,"geometry":locations[location]})
+	print context_dict["locations"]
     except:
-        print "ERROR"
+	print "ERROR"
     return render(request, 'profile.html', context_dict)
+
+def about(request):
+	return render(request, 'about.html')
 
 @login_required
 def addLocation(request):

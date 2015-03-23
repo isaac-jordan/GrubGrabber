@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Your Profile{% endblock %}
+
+{% block content %}
+
+{% load staticfiles %}
+<div class="row">
+    <div class="large-12 columns">
+        <div class="row">
+            <h1>About</h1>
+
+
+            <div class="row">
+                Awrite. This is GrubGrabber.
+				<br>
+				The website designed to unite humanity and acheive singularity through an efficient food searching algorithm.
+				<br>
+				To use this website simply type your location into the search bar and we'll do the rest of the work for you!
+				</br>
+				<img src="{% static 'img/grubgrabber.jpg' %}" width="1000" alt="Grub Grabber" />
+				</br>
+				This was developed as part of our Web App Development course at Glasgow University
+            </div>
+
+{% endblock %}
