@@ -27,7 +27,6 @@
     <div class="small-12 columns">
       <div class="row">
         <div class="small-4 columns">
-
           <h4>Recent Eats</h4><hr>
           {% if likes %}
 
@@ -64,7 +63,7 @@
             {% for location in locations %}
               <form action="search/" method="post">
                 {% csrf_token %}
-                <a href="search/{{location.geometry}}">{{location.name}}</a>
+                <a class="locationItem">{{location.name}}</a>
               </form>
             {% endfor %}
           {% else %}
