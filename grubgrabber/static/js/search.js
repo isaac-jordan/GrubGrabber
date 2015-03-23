@@ -108,6 +108,10 @@ function getNextResult() {
     var result = searchResults.shift();
     if (result != undefined) {
         setResult(result);
+    if ($("#blacklist").hasClass("info")) {
+      $("#blacklist").removeClass("info");
+      $("#blacklistIcon").html("")
+    }
     } else {
         if (paginationCache.hasNextPage) {
             paginationCache.nextPage();
