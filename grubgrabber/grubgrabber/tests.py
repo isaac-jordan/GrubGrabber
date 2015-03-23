@@ -62,3 +62,14 @@ class UserProfileTests(TestCase):
         user = add_user_and_profile("stevo", "stevo@gmail.com", "Greggs", "howdy")
         profile = UserProfile.objects.filter(user=user)[0]
         self.assertTrue(json.loads(profile.locations_json) == {})
+
+    def test_user(self):
+        user = add_user_and_profile("stevo", "stevo@gmail.com", "Greggs", "howdy")
+        profile = UserProfile.objects.filter(user=user)[0]
+        self.assertTrue(user.email == "stevo@gmail.com")
+        self.assertTrue(user.username == "stevo")
+        
+    def test_user_profile(self):
+        user = add_user_and_profile("stevo", "stevo@gmail.com", "Greggs", "howdy")
+        profile = UserProfile.objects.filter(user=user)[0]
+        self.assertTrue(profile.about == "howdy")
