@@ -125,7 +125,6 @@ def profile(request):
         context_dict["locations"] = []
         user_profile = UserProfile.objects.get(user=user)
         context_dict['user_profile'] = user_profile
-    print context_dict["locations"]
     except:
         print "ERROR"
     locations = json.loads(user_profile.locations_json)
