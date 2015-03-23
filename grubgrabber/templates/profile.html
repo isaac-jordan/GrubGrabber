@@ -74,7 +74,7 @@
 
           <section aria-hidden="true" class="content" id="panel2-3">
             {% for location in locations %}
-                <p>{{ location.name | safe }}</p>
+                <p>{{ location.name | safe }}</p><a data-place="{{ location.place_id }}" class="button removeLoc">Remove</a>
             {% empty %}
               <strong>No Places Added!</strong>
             {% endfor %}

@@ -29,4 +29,20 @@ $("#addLocation").click(function() {
 
 });
 
+$(".removeLoc").click(function() {
+    var name = $(this).prev().html();
+    console.log(name);
+    $.ajax({
+        type:"POST",
+        url:"/add_location/",
+        data:{"name":name},
+        success: function(data) {
+            alert("Address Removed!")
+        },
+        error: function(result) {
+            console.log(result["responseText"]);
+        },
+    });
+});
+
 google.maps.event.addDomListener(window, 'load', initialise);

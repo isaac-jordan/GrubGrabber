@@ -139,7 +139,11 @@ def about(request):
 def addLocation(request):
     userprofile = UserProfile.objects.get(user=request.user)
     locations = json.loads(userprofile.locations_json)
-    locations[request.POST["name"]] = request.POST["geometry"]
+    name = request.POST["name"]
+    if name in locations.keys():
+        del locations[name]
+    else:
+        locations[request.POST["name"]] = request.POST["geometry"]
     userprofile.locations_json = json.dumps(locations)
     userprofile.save()
     return HttpResponse("Added or Updated")
