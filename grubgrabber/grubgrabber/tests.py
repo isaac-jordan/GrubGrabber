@@ -1,6 +1,6 @@
 from django.test import TestCase, Client
 from django.core.urlresolvers import reverse
-from grubgrabber.models import Like, Favourite, Blacklist, UserProfile
+from grubgrabber.models import Like, UserProfile
 from django.contrib.auth.models import User
 import os
 import json
@@ -41,6 +41,9 @@ class IndexViewTests(TestCase):
         for like in response.context['likes']:
             likes.append(like.name)
         self.assertTrue('Greggs' in likes)
+        self.assertTrue('Bills' in likes)
+        self.assertTrue('Stevens' in likes)
+        self.assertTrue('Bens' in likes)
 
 class ProfileViewTests(TestCase):
 
@@ -52,12 +55,6 @@ class ProfileViewTests(TestCase):
         add_user_and_profile("stevo", "stevo@gmail.com", "Greggs", "howdy")
         response = self.client.get(reverse('index'))
         self.assertEqual(response.status_code, 200)
-
-class FavouriteTests(TestCase):
-    pass
-
-class BlacklistTests(TestCase):
-    pass
 
 class UserProfileTests(TestCase):
 
