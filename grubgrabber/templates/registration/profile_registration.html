@@ -12,15 +12,14 @@
         Thank you for registering!
     {% else %}
         <form role="form"  method="post" action="." enctype="multipart/form-data">
-            {% csrf_token %}
-              <div class="form-group" >
-                <div class="small-9 columns">
-                  <h2 class="form-signin-heading">Add Profile Information</h2>
-                  {{ profile_form.as_p }}
-                  <button class="button expand" type="submit" value="Submit">Add Profile</button>
-                </div>
-              </div>
+          {% csrf_token %}
+          <div class="form-group" >
+            <div class="small-9 columns">
+              <h2 class="form-signin-heading">Add Profile Information</h2>
+              {{ profile_form.as_p }}
+              <button class="button expand" type="submit" value="Submit">Add Profile</button>
             </div>
+          </div>
         </form>
     {% endif %}
   </div>

@@ -52,7 +52,6 @@
                     <section aria-hidden="false" class="content active" id="panel2-1">
                         {% if favourites %}
                             <ul class="list-group">
-                                <li><strong> Favourites: </strong></li>
                                 {% for favourite in favourites %}
                                 <li class ="list-group-item"><a href="/place/{{ favourite.place_id }}">{{ favourite.name | safe }}</a></li>
                                 {% endfor %}
@@ -65,7 +64,6 @@
                     <section aria-hidden="true" class="content" id="panel2-2">
                         {% if blacklist %}
                             <ul class="list-group">
-                                <li><strong> Blacklist : </strong></li>
                                 {% for blacklist in blacklist %}
                                 <li class ="list-group-item"><a href="/place/{{ blacklist.place_id }}">{{ blacklist.name | safe }}</a></li>
                                 {% endfor %}
