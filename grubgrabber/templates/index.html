@@ -4,10 +4,8 @@
 
 {% block content %}
 <div class="row">
-  <div class="small-12 columns text-center">
-    <img src="{% static 'img/grubgrabber.jpg' %}" width="1200" alt="Grub Grabber" />
-  </div>
-  <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+  <img src="{% static 'img/grubgrabber.jpg' %}" width="1000" alt="Grub Grabber" />
+  <br /><br />
 
   <div class="row">
     <div class="small-12 columns">
@@ -34,7 +32,7 @@
 
           <ul class="list-group">
             {% for Like in likes %}
-            <li class ="list-group-item"><a href="/place/{{ Like.place_id }}">{{ Like.name }}</a></li>
+            <li class ="list-group-item"><a href="/place/{{ Like.place_id }}">{{ Like.name | safe }}</a></li>
             {% endfor %}
           </ul>
           {% else %}
@@ -50,7 +48,7 @@
 
           <ul class="list-group">
             {% for favourite in favourites %}
-            <li class ="list-group-item"><a href="/place/{{ favourite.place_id }}">{{ favourite.name }}</a></li>
+            <li class ="list-group-item"><a href="/place/{{ favourite.place_id }}">{{ favourite.name | safe }}</a></li>
             {% endfor %}
           </ul>
           {% else %}
