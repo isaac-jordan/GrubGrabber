@@ -8,37 +8,35 @@
 		<form role="form"  method="post" action=".">
 			{% csrf_token %}
 
-			<h2 class="form-signin-heading">Sign Up Here <small>-<a href="/accounts/login/">  already got an account?</a></small></h2> 
-			<form data-abide>
-				<div class="form-group" >
-					<div class="small-9 columns">
-						<label for="id_username">Username:</label>
-						<input class="form-control"  id="id_username" maxlength="30" name="username" type="text"  placeholder="Enter username" required/>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="small-9 columns">
-						<label for="id_email">E-mail:</label>
-						<input class="form-control" id="id_email" name="email" type="email" placeholder="Enter email" required/>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="small-9 columns">
-						<label for="id_password1">Password:</label>
-						<input class="form-control" id="id_password1" name="password1" type="password" placeholder="Enter password" required/>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="small-9 columns">
-						<label for="id_password2">Password (again):</label>
-						<input class="form-control" id="id_password2" name="password2" type="password" placeholder="Enter password again" required/>
-					</div>
-				</div>
-
+			<h2 class="form-signin-heading">Sign Up Here <small>-<a href="/accounts/login/">  already got an account?</a></small></h2>
+			<div class="form-group" >
 				<div class="small-9 columns">
-					<button type="submit" class="button expand">Submit</button>
+					<label for="id_username">Username:</label>
+					<input class="form-control"  id="id_username" maxlength="30" name="username" type="text"  placeholder="Enter username" required/>
 				</div>
-			</form>
+			</div>
+			<div class="form-group">
+				<div class="small-9 columns">
+					<label for="id_email">E-mail:</label>
+					<input class="form-control" id="id_email" name="email" type="email" placeholder="Enter email" required/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="small-9 columns">
+					<label for="id_password1">Password:</label>
+					<input class="form-control" id="id_password1" name="password1" type="password" placeholder="Enter password" required/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="small-9 columns">
+					<label for="id_password2">Password (again):</label>
+					<input class="form-control" id="id_password2" name="password2" type="password" placeholder="Enter password again" required/>
+				</div>
+			</div>
+
+			<div class="small-9 columns">
+				<button type="submit" class="button expand">Submit</button>
+			</div>
 		</form>
 	</div>
 </div>

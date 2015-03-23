@@ -11,14 +11,14 @@
     <div id="currentResult" class="panel">
       <div class="row">
         <div class="small-1 columns">
-          <img id="typeIcon" class="left" height="49" width="49"/>
+          <img src="/" id="typeIcon" class="left" height="49" width="49" alt="type"/>
         </div>
         <div class="small-7 columns">
           <h1><span id="placeName" data-place=''></span></h1>
         </div>
         <div class="small-4 columns">
           <div id="placePhotoContainer">
-            <img id="placePhoto" src="http://placehold.it/329x150&text=No Place Image">
+            <img id="placePhoto" src="http://placehold.it/329x150&amp;text=No&nbsp;Place&nbsp;Image" alt="Place image">
           </div>
         </div>
       </div>
@@ -39,7 +39,7 @@
           <a class='button secondary' onClick='getNextResult()'>Get Next</a>
           <a id ='thisPlace' class='button success'>Eat Here!</a>
           {% if user.is_authenticated %}
-          <a class='button alert' id="blacklist"><span id="blacklistIcon"></span>Blacklist</a>
+            <a class='button alert' id="blacklist"><span id="blacklistIcon"></span>Blacklist</a>
           {% endif %}
         </div>
       </div>
@@ -52,7 +52,7 @@
 {% endblock %}
 
 {% block javascript %}
-<script src="http://maps.googleapis.com/maps/api/js?key={{ mapsKey }}&libraries=places"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key={{ mapsKey }}&amp;libraries=places"></script>
 <script src="{% static "js/search.js" %}"></script>
 
 <script>
