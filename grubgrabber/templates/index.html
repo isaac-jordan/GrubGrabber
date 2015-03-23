@@ -64,7 +64,11 @@
           <h4>Locations</h4><hr>
           {% if user.is_authenticated %}
             {% for location in locations %}
-              <a href="search/{{location.geometry}}">{{location.name}}</a>
+              <form action="search/" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="field1" value="foo" />
+                <a href="search/{{location.geometry}}">{{location.name}}</a>
+              </form>
             {% endfor %}
           {% else %}
             <b><a href="{% url 'auth_login' %}">Login</a> to view your personal locations</b>
