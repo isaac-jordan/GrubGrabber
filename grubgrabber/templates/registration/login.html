@@ -7,6 +7,7 @@
   <div class="large-12 columns">
     <form class="form-signin" role="form" method="post" action=".">
       {% csrf_token %}
+      {{ form.errors }}
       <h2><class="form-signin-heading">Please sign in - <a href="/accounts/register/">not got an account?</a></h2>
       <input class="form-control" placeholder="Username" id="id_username" maxlength="254" name="username" type="text" required autofocus=""/>
       <input class="form-control" placeholder="Password" id="id_password" name="password" type="password" required />
@@ -16,4 +17,3 @@
 </div>
 
 {% endblock %}
-
