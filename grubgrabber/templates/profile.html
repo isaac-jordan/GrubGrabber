@@ -75,9 +75,7 @@
           <section aria-hidden="true" class="content" id="panel2-3">
             <div class="row">
             {% for location in locations %}
-              <div class="large-6 columns">
-                {{ location.name | safe }}
-              </div>
+              <div class="large-6 columns">{{ location.name | safe }}</div>
               <div class="large-6 columns">
                 <a data-place="{{ location.place_id }}" class="button tiny removeLoc">Remove</a>
               </div>
