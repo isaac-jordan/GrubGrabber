@@ -73,6 +73,10 @@ def populate():
 
     add_favourite(name='Chunky Chicken',
         place_id="ChIJpavn3ChEiEgRDqLFmr1wJ1U",
+        user = user5)
+
+    add_favourite(name='Chunky Chicken',
+        place_id="ChIJpavn3ChEiEgRDqLFmr1wJ1U",
         user = user1)
 
     add_like(name='Chunky Chicken',
@@ -111,6 +115,10 @@ def populate():
         user = user1,
         name = 'Stravaigin')
 
+    add_blacklist(place_id ="ChIJ-7gDJtYRiEgRhcV1zoFOCXc",
+        user = user5,
+        name = 'Stravaigin')
+
     add_blacklist(place_id ="ChIJNanQ24gWNIgRcPYC9_6WjMg",
         user = user3,
         name = 'Sunoco Gas Station')
@@ -134,6 +142,10 @@ def populate():
     add_like(name="Rabbie's Cafe",
         place_id="ChIJI5r8_o7Hh0gRc9Mu8QJaRkU",
         user = user2)
+
+    add_favourite(name="Rabbie's Cafe",
+        place_id="ChIJI5r8_o7Hh0gRc9Mu8QJaRkU",
+        user = user5)
 
     add_dislike(name="Rabbie's Cafe",
         place_id="ChIJI5r8_o7Hh0gRc9Mu8QJaRkU",
@@ -179,9 +191,9 @@ def populate():
     print "added :)"
 
 def add_user(name, email, password, about):
-    u = User.objects.get_or_create(username = name, email=email, password=password)[0]
+    u = User.objects.create_user(name, email,password)
     u.save()
-    UserProfile.objects.get_or_create(user = u, about = about)
+    UserProfile.objects.get_or_create(user = u, about = about, locations_json="{}")
     return u
 
 def add_like(name, place_id, user):
