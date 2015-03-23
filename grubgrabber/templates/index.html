@@ -62,6 +62,8 @@
                 {% csrf_token %}
                 <a class="locationItem">{{location.name}}</a>
               </form>
+            {% empty %}
+              No Saved Locations! Go to profile to add some!
             {% endfor %}
             {% else %}
               <b><a href="{% url 'auth_login' %}">Login</a> to view your personal locations</b>
