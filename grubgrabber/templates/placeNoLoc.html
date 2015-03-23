@@ -6,7 +6,6 @@
 <script src="{% static "js/slick.min.js" %}"></script>
 <script src="{% static "js/place.js" %}"></script>
 <script src="{% static "js/placeNoLoc.js" %}"></script>
-
 <script>
 initialize("{{ PLACE_ID | safe }}");
 {% if blacklisted %}
@@ -15,4 +14,5 @@ setBlacklisted();
 setFavourited();
 {% endif %}
 </script>
+
 {% endblock %}

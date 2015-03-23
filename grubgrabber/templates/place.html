@@ -5,53 +5,54 @@
 
 {% block content %}
 <div class="row">
-    <div class="small-12 ">
-        <div id="currentResult" class="panel">
-            <div class="row">
-                <div class="small-1 columns">
-                    <img src="/" id="typeIcon" class="left" height="49" width="49" alt="Type"/>
-                </div>
-                <div class="small-7 columns">
-                    <h1><span id="placeName" data-place=''></span></h1>
-                </div>
-                <div class="small-4 columns">
-                    <div id="placePhotoContainer">
-                        <img id="placePhoto" src="http://placehold.it/329x150&amp;text=Place&nbsp;Image" alt="Place">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="small-11 large-centered columns">
-                    <div id="googleMap"></div>
-                </div>
-                <div class="small-11 columns">
-                    <p>Location: <span id="placeLocation"></span></p>
-                    <p>Rating: <span id="placeRating"></span></p>
-                    <p>Website: <a target="_blank" id="placeWebsite"></a></p>
-                    <p>Types: <span id="placeTypes"></span></p>
-                    <p>Reviews: <a href="#placeReviews">Click here</a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="small-12 columns">
-					{% if user.is_authenticated %}
-                        <a class="button" id="favourite"><span id="favouriteIcon"></span>Favourite</a>
-                        <a class='button alert' id="blacklist"><span id="blacklistIcon"></span>Blacklist</a>
-					{% else %}
-					    <a class="button" href="/accounts/register/"><span id="favouriteIcon"></span>Favourite</a>
-					     <a class='button alert' href="/accounts/register/"><span id="blacklistIcon"></span>Blacklist</a>
-					{% endif %}
-                </div>
-            </div>
+  <div class="small-12 ">
+    <div id="currentResult" class="panel">
+      <div class="row">
+        <div class="small-1 columns">
+          <img src="/" id="typeIcon" class="left" height="49" width="49" alt="Type"/>
         </div>
+        <div class="small-7 columns">
+          <h1><span id="placeName" data-place=''></span></h1>
+        </div>
+        <div class="small-4 columns">
+          <div id="placePhotoContainer">
+            <img id="placePhoto" src="http://placehold.it/329x150&amp;text=Place&nbsp;Image" alt="Place">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-11 large-centered columns">
+          <div id="googleMap">
+          </div>
+        </div>
+        <div class="small-11 columns">
+          <p>Location: <span id="placeLocation"></span></p>
+          <p>Rating: <span id="placeRating"></span></p>
+          <p>Website: <a target="_blank" id="placeWebsite"></a></p>
+          <p>Types: <span id="placeTypes"></span></p>
+          <p>Reviews: <a href="#placeReviews">Click here</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 columns">
+          {% if user.is_authenticated %}
+          <a class="button" id="favourite"><span id="favouriteIcon"></span>Favourite</a>
+          <a class='button alert' id="blacklist"><span id="blacklistIcon"></span>Blacklist</a>
+          {% else %}
+          <a class="button" href="/accounts/register/"><span id="favouriteIcon"></span>Favourite</a>
+          <a class='button alert' href="/accounts/register/"><span id="blacklistIcon"></span>Blacklist</a>
+          {% endif %}
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 <div class="row">
-    <div class="small-12 columns panel" >
-        <div id="placeReviews" class="placeReviews"></div>
-        <ul id="placeReviewsButtons" class="button-group round text-center">
-        </ul>
-    </div>
+  <div class="small-12 columns panel" >
+    <div id="placeReviews" class="placeReviews"></div>
+    <ul id="placeReviewsButtons" class="button-group round text-center">
+    </ul>
+  </div>
 </div>
 {% endblock %}
 

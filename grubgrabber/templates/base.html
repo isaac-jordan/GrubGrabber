@@ -15,31 +15,28 @@
 
 <body>
   <nav class="top-bar" data-topbar>
-
     <ul class="title-area">
       <li class="name">
         <h1><a href="{% url 'index' %}">Grub Grabber</a></h1>
       </li>
     </ul>
-
     <section class="top-bar-section">
       <ul class="right">
         <li class="divider"></li>
         {% if user.is_authenticated %}
-          <li><a href="{% url 'profile' %}">Profile</a></li>
-          <li class="divider"></li>
-          <li><a href="{% url 'auth_logout' %}?next=/">Logout</a></li>
+        <li><a href="{% url 'profile' %}">Profile</a></li>
+        <li class="divider"></li>
+        <li><a href="{% url 'auth_logout' %}?next=/">Logout</a></li>
         {% else %}
-          <li><a href="{% url 'registration_register' %}">Register</a></li>
-          <li class="divider"></li>
-          <li><a href="{% url 'auth_login' %}">Log In</a></li>
+        <li><a href="{% url 'registration_register' %}">Register</a></li>
+        <li class="divider"></li>
+        <li><a href="{% url 'auth_login' %}">Log In</a></li>
         {% endif %}
       </ul>
     </section>
-
   </nav>
 
-  <br> <!-- So body has small space between it and nav -->
+  <br>
 
   {% block content %}
   {% endblock %}
@@ -55,7 +52,7 @@
         <div class="large-6 small-12 columns">
           <ul class="inline-list right">
             <li><a href="https://github.com/Sheepzez/GrubGrabber" target="_blank">GitHub Code</a></li>
-			<li><a href="/about/" >About</a></li>
+            <li><a href="/about/" >About</a></li>
             <li><a href="https://github.com/Sheepzez/GrubGrabber/issues" target="_blank">Problems &amp; Suggestions</a></li>
           </ul>
         </div>

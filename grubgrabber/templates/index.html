@@ -12,7 +12,7 @@
       <h3>&nbsp;&nbsp; Can't decide what to each for lunch? </h3><br />
     </div>
     <div class="small-1 columns">
-      &nbsp;&nbsp; <i class='fi-magnifying-glass large'></i>
+      &nbsp;&nbsp;<i class='fi-magnifying-glass large'></i>
     </div>
     <div class="small-11 columns">
       <form action="search/" method="post">
@@ -32,15 +32,13 @@
 
           <ul class="list-group">
             {% for Like in likes %}
-            <li class ="list-group-item"><a href="/place/{{ Like.place_id }}">{{ Like.name | safe }}</a></li>
+              <li class ="list-group-item"><a href="/place/{{ Like.place_id }}">{{ Like.name | safe }}</a></li>
             {% endfor %}
           </ul>
           {% else %}
-          <strong>No recent eats</strong>
+            <strong>No recent eats</strong>
           {% endif %}
         </div>
-
-        <!-- Log in -->
 
         <div class="small-12 medium-6 large-4 columns">
           <h4>Top Eats</h4><hr>
@@ -48,13 +46,12 @@
 
           <ul class="list-group">
             {% for favourite in favourites %}
-            <li class ="list-group-item"><a href="/place/{{ favourite.place_id }}">{{ favourite.name | safe }}</a></li>
+              <li class ="list-group-item"><a href="/place/{{ favourite.place_id }}">{{ favourite.name | safe }}</a></li>
             {% endfor %}
           </ul>
           {% else %}
-          <strong>No favourite eats</strong>
+            <strong>No favourite eats</strong>
           {% endif %}
-
         </div>
 
         <div class="small-12 medium-6 large-4 columns">
@@ -66,8 +63,8 @@
                 <a class="locationItem">{{location.name}}</a>
               </form>
             {% endfor %}
-          {% else %}
-            <b><a href="{% url 'auth_login' %}">Login</a> to view your personal locations</b>
+            {% else %}
+              <b><a href="{% url 'auth_login' %}">Login</a> to view your personal locations</b>
           {% endif %}
         </div>
       </div>
