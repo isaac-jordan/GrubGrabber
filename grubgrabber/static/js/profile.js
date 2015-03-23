@@ -30,7 +30,7 @@ $("#addLocation").click(function() {
 });
 
 $(".removeLoc").click(function() {
-    var name = $(this).prev().html();
+    var name = $(this).parent().prev().html();
     console.log(name);
     $.ajax({
         type:"POST",

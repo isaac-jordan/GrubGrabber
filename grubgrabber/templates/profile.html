@@ -73,10 +73,16 @@
           </section>
 
           <section aria-hidden="true" class="content" id="panel2-3">
+            <div class="row">
             {% for location in locations %}
-                <p>{{ location.name | safe }}</p><a data-place="{{ location.place_id }}" class="button removeLoc">Remove</a>
+              <div class="large-6 columns">
+                {{ location.name | safe }}
+              </div>
+              <div class="large-6 columns">
+                <a data-place="{{ location.place_id }}" class="button tiny removeLoc">Remove</a>
+              </div>
             {% empty %}
-              <strong>No Places Added!</strong>
+            <div class="large-6 columns"><strong>No Places Added!</strong></div>
             {% endfor %}
             <br>
             <input id="location" type="text" placeholder="Start typing an address"/>
