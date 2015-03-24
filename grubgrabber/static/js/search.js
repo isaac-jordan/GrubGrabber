@@ -127,9 +127,9 @@ $("#thisPlace").click(function() {
     $.ajax({
         type:"POST",
         url:"/add_like/",
-        data: {"place":place, "name":name},
+        data: {place:place, name:name},
         success: function(result) {
-            //console.log("Like added.");
+            $("#like").addClass("info");
         },
         error: function(error) {
             console.log(error["responseText"]);
