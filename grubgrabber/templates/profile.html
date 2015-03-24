@@ -54,31 +54,29 @@
           <li class="tab-title"><a href="#panel2-3" role="tab" tabindex="0" aria-selected="false">Black-Listed</a></li>
         </ul>
         <div class="tabs-content">
-        
+
           <section aria-hidden="false" class="content active" id="panel2-1"><br>
             <div class="row">
             {% if user_profile %}
-			  {% if locations %}
+			          {% if locations %}
                 {% for location in locations %}
                   <div class="large-6 columns">{{ location.name | safe }}</div>
-                    <div class="large-6 columns">
-                      <a data-place="{{ location.place_id }}" class="button tiny removeLoc">Remove</a>
-                    </div>
+                  <div class="large-6 columns">
+                    <a data-place="{{ location.place_id }}" class="button tiny removeLoc">Remove</a>
                   </div>
                 {% endfor %}
               {% else %}
                 <div class="large-6 columns"><strong>No Places Added!</strong></div>
               {% endif %}
-            
+
               <br />
               <input id="location" type="text" placeholder="Start typing an address"/>
               <a id="addLocation" class="button">Add a location</a>
             {% else %}
               Add a <a href="{% url "register_profile" %}">User Profile</a> to register you locations!
             {% endif %}
-            </div>
           </section>
-          
+
           <section aria-hidden="true" class="content" id="panel2-2"><br>
             {% if favourites %}
               {% for favourite in favourites %}
@@ -99,7 +97,7 @@
               <strong>No blacklisted</strong>
             {% endif %}
           </section>
-          
+
         </div>
       </div>
     </div>
