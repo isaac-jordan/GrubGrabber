@@ -186,9 +186,15 @@ def sort_search_results(request):
         result_list[i][1] += (20 - i)
 
     favourites = Favourite.objects.all() #One DB call
+    if request.user.is_authenticated():
+        userFavourites = favourites.filter(user=user).values_list('place_id', flat=True)
+    else:
+        userFavourites = []
        
     likes = Like.objects.all()
     for result in result_list:
+        if result[0] in userFavourites:
+            result[1] += 5 #Add 5 if user has favourited place
         liked = likes.filter(place_id=result[0])
         favourited = favourites.filter(place_id=result[0])
         result[1] += (len(favourited) * 1.5)#Add number of favourites

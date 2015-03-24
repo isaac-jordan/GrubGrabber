@@ -64,7 +64,7 @@
                 <p><a class="locationItem">{{location.name}}</a></p>
               </form>
             {% empty %}
-              No Saved Locations! Go to profile to add some!
+              No Saved Locations! <a href="/profile/#panel2-3" >Go to profile to add some!</a>
             {% endfor %}
             {% else %}
               <b><a href="{% url 'auth_login' %}">Login</a> to view your personal locations</b>
