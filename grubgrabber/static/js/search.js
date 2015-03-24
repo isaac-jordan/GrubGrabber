@@ -129,7 +129,7 @@ $("#thisPlace").click(function() {
         url:"/add_like/",
         data: {place:place, name:name},
         success: function(result) {
-            $("#like").addClass("info");
+				$("#like").addClass("info");
         },
         error: function(error) {
             console.log(error["responseText"]);
