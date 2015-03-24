@@ -16,7 +16,7 @@ $("#addLocation").click(function() {
                 url:"/add_location/",
                 data:{"name":name, "geometry":locationObject},
                 success: function(data) {
-                    alert("Address Added!")
+                    location.reload();
                 },
                 error: function(result) {
                     console.log(result["responseText"]);
