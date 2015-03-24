@@ -55,7 +55,7 @@
         </ul>
         <div class="tabs-content">
         
-          <section aria-hidden="true" class="content" id="panel2-1"><br>
+          <section aria-hidden="false" class="content active" id="panel2-1"><br>
             <div class="row">
 			{% if locations %}
               {% for location in locations %}
@@ -74,7 +74,7 @@
             <a id="addLocation" class="button">Add a location</a>
           </section>
           
-          <section aria-hidden="true" class="content active" id="panel2-2"><br>
+          <section aria-hidden="true" class="content" id="panel2-2"><br>
             {% if favourites %}
               {% for favourite in favourites %}
                 <p><a href="/place/{{ favourite.place_id }}">{{ favourite.name | safe }}</a></p>
