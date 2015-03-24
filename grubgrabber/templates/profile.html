@@ -51,7 +51,7 @@
           <li class="tab-title"><a href="#panel2-3" role="tab" tabindex="0" aria-selected="false">Your Locations</a></li>
         </ul>
         <div class="tabs-content">
-          <section aria-hidden="false" class="content active" id="panel2-1">
+          <section aria-hidden="false" class="content active" id="panel2-1"><br>
             {% if favourites %}
               {% for favourite in favourites %}
                 <p><a href="/place/{{ favourite.place_id }}">{{ favourite.name | safe }}</a></p>
@@ -62,7 +62,7 @@
             {% endif %}
           </section>
 
-          <section aria-hidden="true" class="content" id="panel2-2">
+          <section aria-hidden="true" class="content" id="panel2-2"><br>
             {% if blacklist %}
               {% for blacklist in blacklist %}
                 <p><a href="/place/{{ blacklist.place_id }}">{{ blacklist.name | safe }}</a></p>
@@ -72,7 +72,7 @@
             {% endif %}
           </section>
 
-          <section aria-hidden="true" class="content" id="panel2-3">
+          <section aria-hidden="true" class="content" id="panel2-3"><br>
             <div class="row">
             {% for location in locations %}
               <div class="large-6 columns">{{ location.name | safe }}</div>
