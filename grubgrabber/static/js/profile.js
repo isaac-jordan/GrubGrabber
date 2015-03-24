@@ -37,7 +37,7 @@ $(".removeLoc").click(function() {
         url:"/add_location/",
         data:{"name":name},
         success: function(data) {
-            alert("Address Removed!")
+            location.reload();
         },
         error: function(result) {
             console.log(result["responseText"]);
