@@ -57,21 +57,24 @@
 
           <section aria-hidden="false" class="content active" id="panel2-1"><br>
             <div class="row">
-			        {% if locations %}
-              {% for location in locations %}
-                <div class="large-6 columns">{{ location.name | safe }}</div>
+            {% if user_profile %}
+			          {% if locations %}
+                {% for location in locations %}
+                  <div class="large-6 columns">{{ location.name | safe }}</div>
                   <div class="large-6 columns">
                     <a data-place="{{ location.place_id }}" class="button tiny removeLoc">Remove</a>
                   </div>
-				        </div>
-              {% endfor %}
-            {% else %}
-              <div class="large-6 columns"><strong>No Places Added!</strong></div>
-            {% endif %}
+                {% endfor %}
+              {% else %}
+                <div class="large-6 columns"><strong>No Places Added!</strong></div>
+              {% endif %}
 
-            <br>
-            <input id="location" type="text" placeholder="Start typing an address"/>
-            <a id="addLocation" class="button">Add a location</a>
+              <br />
+              <input id="location" type="text" placeholder="Start typing an address"/>
+              <a id="addLocation" class="button">Add a location</a>
+            {% else %}
+              Add a <a href="{% url "register_profile" %}">User Profile</a> to register you locations!
+            {% endif %}
           </section>
 
           <section aria-hidden="true" class="content" id="panel2-2"><br>
