@@ -53,8 +53,20 @@ class ProfileViewTests(TestCase):
 
     def test_username_shows(self):
         add_user_and_profile("stevo", "stevo@gmail.com", "Greggs", "howdy")
-        response = self.client.get(reverse('index'))
+        response = self.client.get(reverse('profile'))
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "stevo")
+
+class LogInViewTests(TestCase):
+
+    def setUp(self):
+        # Every test needs a client.
+        self.client = Client()
+
+    def test_username_shows(self):
+        response = self.client.get(reverse('login'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Please sign in")
 
 class UserProfileTests(TestCase):
 
@@ -68,7 +80,7 @@ class UserProfileTests(TestCase):
         profile = UserProfile.objects.filter(user=user)[0]
         self.assertTrue(user.email == "stevo@gmail.com")
         self.assertTrue(user.username == "stevo")
-        
+
     def test_user_profile(self):
         user = add_user_and_profile("stevo", "stevo@gmail.com", "Greggs", "howdy")
         profile = UserProfile.objects.filter(user=user)[0]
