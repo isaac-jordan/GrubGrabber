@@ -11,7 +11,7 @@ def add_like(place_id, name, user=None):
     return like
 
 def add_user_and_profile(name, email, password, about):
-    u = User.objects.get_or_create(username = name, email=email, password=password)[0]
+    u = User.objects.create_user(name, email=email, password=password)
     UserProfile.objects.get_or_create(user = u, about = about, locations_json=json.dumps({}))
     return u
 
@@ -57,9 +57,13 @@ class ProfileViewTests(TestCase):
 
     def test_username_shows(self):
         add_user_and_profile("stevo", "stevo@gmail.com", "Greggs", "howdy")
-        response = self.client.get(reverse('profile'))
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "stevo")
+        loggedIn = self.client.login(username='stevo', password='Greggs')
+        if loggedIn:
+            response = self.client.get(reverse('profile'))
+            self.assertEqual(response.status_code, 200)
+            self.assertContains(response, "stevo")
+        else:
+            print "BOO"
 
 class LogInViewTests(TestCase):
 
