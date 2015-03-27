@@ -10,7 +10,7 @@ import json
 GOOGLEKEY = open("key.txt").readline()
 
 def index(request):
-    likes = Like.objects.all()[10:]
+    likes = Like.objects.all()[:10]
 
     #Remove places with same place id for Recent Eats
     likesResult = set()
@@ -20,7 +20,8 @@ def index(request):
             l.append(item)
             likesResult.add(item.place_id)
 
-    likes = reversed(l[(len(l) - 5):])
+    #likes = reversed(l[(len(l) - 5):])
+    likes = l[::-1]
     context_dict = {'likes' : likes}
 
     #favourites =
@@ -190,7 +191,7 @@ def sort_search_results(request):
         userFavourites = favourites.filter(user=user).values_list('place_id', flat=True)
     else:
         userFavourites = []
-       
+
     likes = Like.objects.all()
     for result in result_list:
         if result[0] in userFavourites:

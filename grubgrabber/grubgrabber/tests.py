@@ -28,19 +28,16 @@ class IndexViewTests(TestCase):
 
     def test_index_view_with_recent_eats(self):
         u = add_user_and_profile("stevo", "stevo@gmail.com", "Greggs", "howdy")
-        add_like("ChIJ-4qF7s5FiEgR6bRXbXOZeek", 'Greggs', u)
-        add_like("ChIJ-4qF7s5FiEgR6bRXbXOZee", 'Bills', u)
-        add_like("ChIJ-4qF7s5FiEgR6bRXbXOZek", 'Stevens', u)
-        add_like("ChIJ-4qF7s5FiEgR6bRXbXOeek", 'Bens', u)
+        add_like("ChIJ-4qF7s5FiEgR6bRXbXOZeek", 'Greggs', user=u)
+        add_like("ChIJ-4qF7s5FiEgR6bRXbXOZee", 'Bills', user=u)
+        add_like("ChIJ-4qF7s5FiEgR6bRXbXOZek", 'Stevens', user=u)
+        add_like("ChIJ-4qF7s5FiEgR6bRXbXOeek", 'Bens', user=u)
 
         response = self.client.get(reverse('index'))
-        print response
         self.assertEqual(response.status_code, 200)
         likes = []
         for like in response.context['likes']:
             likes.append(like.name)
-
-        print likes
 
         no_recent_eats = len(likes)
         self.assertEqual(no_recent_eats , 4)
@@ -58,12 +55,10 @@ class ProfileViewTests(TestCase):
     def test_username_shows(self):
         add_user_and_profile("stevo", "stevo@gmail.com", "Greggs", "howdy")
         loggedIn = self.client.login(username='stevo', password='Greggs')
-        if loggedIn:
-            response = self.client.get(reverse('profile'))
-            self.assertEqual(response.status_code, 200)
-            self.assertContains(response, "stevo")
-        else:
-            print "BOO"
+
+        response = self.client.get(reverse('profile'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "stevo")
 
 class LogInViewTests(TestCase):
 
