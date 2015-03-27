@@ -23,7 +23,7 @@
       </form>
     </div>
   </div>
-  
+
   <br /><br />
 
   <br>
@@ -32,15 +32,11 @@
       <div class="row">
         <div class="small-12 medium-6 large-3 columns">
           <h4>Recent Eats</h4><hr>
-          {% if likes %}
-
             {% for Like in likes %}
-              <p><a href="/place/{{ Like.place_id }}">{{ Like.name | safe }}</a></p>
-            {% endfor %}
-
-          {% else %}
-            <strong>No recent eats</strong>
-          {% endif %}
+                <p><a href="/place/{{ Like.place_id }}">{{ Like.name | safe }}</a></p>
+              {% empty %}
+                <strong>No recent eats</strong>
+              {% endfor %}
         </div>
 
         <div class="small-12 medium-6 large-3 columns">
@@ -81,4 +77,3 @@
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false&amp;libraries=places"></script>
 <script src="{% static "js/index.js" %}"></script>
 {% endblock %}
-

@@ -34,12 +34,14 @@ class IndexViewTests(TestCase):
         add_like("ChIJ-4qF7s5FiEgR6bRXbXOeek", 'Bens', u)
 
         response = self.client.get(reverse('index'))
+        print response
         self.assertEqual(response.status_code, 200)
-        no_recent_eats = len(response.context['likes'])
-        self.assertEqual(no_recent_eats , 4)
         likes = []
         for like in response.context['likes']:
             likes.append(like.name)
+
+        no_recent_eats = len(likes)
+        self.assertEqual(no_recent_eats , 4)
         self.assertTrue('Greggs' in likes)
         self.assertTrue('Bills' in likes)
         self.assertTrue('Stevens' in likes)
@@ -64,7 +66,7 @@ class LogInViewTests(TestCase):
         self.client = Client()
 
     def test_username_shows(self):
-        response = self.client.get(reverse('login'))
+        response = self.client.get("/accounts/login")
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Please sign in")
 
