@@ -7,6 +7,8 @@ Grub Grabber makes use of the [Google Maps Javascript API v3](https://developers
 
 See the Design folder for design documentation including wireframes, database structure, and user personas.
 
+Live version available at: http://grubgrabber.pythonanywhere.com/
+
 ## Installation
 
 1. Set up new virtual environment.
